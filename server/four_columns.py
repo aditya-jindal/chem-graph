@@ -2,23 +2,11 @@ from basic_values import BasicValues
 import numpy as np
 
 
-class ColumnAC(BasicValues):
+class FourColumns(BasicValues):
     def __init__(self, file, testing=False):
         super().__init__(file, testing=testing)
-        self.matrices = self.compute_matrices()
-        self.columnA_values = self.compute_columnA()
-        self.entropy_values = self.compute_entropy()
 
-    def compute_matrices(self):
-
-        self.degree_edge_list = np.array(
-            [[self.degree[i], self.degree[j]] for (i, j) in self.edge_list])
-        m_plus = self.degree_edge_list[:, 0] + self.degree_edge_list[:, 1]
-        m_minus = self.degree_edge_list[:,
-                                        0] - self.degree_edge_list[:, 1]
-        m_mul = self.degree_edge_list[:, 0] * self.degree_edge_list[:, 1]
-        m_square_plus = self.degree_edge_list[:,
-                                              0] ** 2 + self.degree_edge_list[:, 1] ** 2
+    def compute_matrices(self, m_plus, m_minus, m_mul, m_square_plus):
         matrices = {
             "first_zagreb": m_plus,
             "second_zagreb": m_mul,
@@ -50,13 +38,11 @@ class ColumnAC(BasicValues):
 
         return matrices
 
-    def compute_columnA(self):
-
-        columnA_values = {key: float(np.sum(value))
+    def compute_degree_indices(self):
+        degree_indices = {key: float(np.sum(value))
                           for key, value in self.matrices.items()}
-        # print("colA:", all_values)
 
-        return columnA_values
+        return degree_indices
 
     def entropy_sum(self, matrix, total_value):
         # if 0 in matrix:
@@ -67,13 +53,12 @@ class ColumnAC(BasicValues):
 
         return -1 * float(np.sum((matrix / total_value) * np.log(matrix / total_value)))
 
-    def compute_entropy(self):
-        entropy_values = {(key+str("_entropy")): self.entropy_sum(matrix,
-                                                                    self.columnA_values[key]) for key, matrix in self.matrices.items()}
-        # print("colB:", entropy_matrices)
+    def compute_entropy_indices(self):
+        # used to be key + str("entropy")
+        entropy_indices = {(key): self.entropy_sum(matrix,
+                                                                    self.degree_indices[key]) for key, matrix in self.matrices.items()}
 
-        return entropy_values
+        return entropy_indices
     
     def get_values(self):
-        # return self.columnA_values
-        return {**self.columnA_values, **self.entropy_values}
+        return {**self.degree_indices, **self.entropy_indices}

@@ -1,10 +1,11 @@
-from column_a import ColumnA
+from column_ab import ColumnAB
+from column_cd import ColumnCD
 import os
 
 file_path = os.path.join('data','FAR23.pdb')
 file = open(file_path, 'r')
 
-test_instance = ColumnA(file, testing=True)
+test_instance = ColumnCD(file, testing=True)
 
 print(test_instance.get_values())
 print('hello world')

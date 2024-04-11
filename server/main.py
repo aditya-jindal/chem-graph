@@ -3,7 +3,8 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import os
 from graph import Graph
-from column_a import ColumnA
+from column_ab import ColumnAB
+from column_cd import ColumnCD
 
 app = Flask(__name__)
 CORS(app)
@@ -20,10 +21,11 @@ def upload_file():
         return jsonify({'error': 'No selected file'}), 400
 
     filename = secure_filename(file.filename)
-    colA_instance = ColumnA(file)
-    computed_values_colA = colA_instance.get_values()
-    
-    return jsonify({'message': 'File uploaded successfully', 'data': computed_values_colA}), 200
+    colAB_instance = ColumnAB(file)
+    colCD_instance = ColumnCD(file)
+    computed_values_colAB = colAB_instance.get_values()
+    computed_values_colCD = colCD_instance.get_values()
+    return jsonify({'message': 'File uploaded successfully', 'data': {**computed_values_colAB, **computed_values_colCD}}), 200
 
 
 if __name__ == "__main__":

@@ -1,4 +1,0 @@
-read_pdb_file() -> conect_list
-read_txt_file() -> conect_list
-conectToStr(conectList) -> new_list
-
