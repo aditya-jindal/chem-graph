@@ -8,6 +8,8 @@ class ColumnA(BasicValues):
         self.matrices = self.compute_matrices()
         self.columnA_values = self.compute_columnA()
         self.entropy_values = self.compute_entropy()
+        # self.entropy_values = {"hello": 555}
+        # self.columnA_values = {"bye": 777}
 
     def compute_matrices(self):
 
@@ -69,11 +71,11 @@ class ColumnA(BasicValues):
 
     def compute_entropy(self):
         entropy_values = {(key+str("_entropy")): self.entropy_sum(matrix,
-                                                                    self.columnA_values[key]) for key, matrix in self.matrices.items()}
+                                                                  self.columnA_values[key]) for key, matrix in self.matrices.items()}
         # print("colB:", entropy_matrices)
 
         return entropy_values
-    
+
     def get_values(self):
         # return self.columnA_values
         return {**self.columnA_values, **self.entropy_values}
