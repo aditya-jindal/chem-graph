@@ -1,24 +1,25 @@
-from graph import Graph
-import networkx as nx
+from basic_values import BasicValues
 import numpy as np
 
 
-class BasicValues():
+class ColumnAC(BasicValues):
     def __init__(self, file, testing=False):
-        obj = Graph(file, testing=testing)
-        self.graph = obj.get_graph()
-        self.num_edges = self.graph.number_of_edges()
-        self.num_vertices = self.graph.number_of_nodes()
-        self.dist_matrix = nx.floyd_warshall_numpy(
-            self.graph, nodelist=sorted(self.graph.nodes))
-        self.degree = dict(self.graph.degree)
-        self.edge_list = list(self.graph.edges)
-        self.matrices = None
-        self.columnA_values = None
-        self.entropy_values = None
+        super().__init__(file, testing=testing)
+        self.matrices = self.compute_matrices()
+        self.columnA_values = self.compute_columnA()
+        self.entropy_values = self.compute_entropy()
 
-    def compute_matrices(self, m_plus, m_minus, m_mul, m_square_plus):
-        self.matrices = {
+    def compute_matrices(self):
+
+        self.degree_edge_list = np.array(
+            [[self.degree[i], self.degree[j]] for (i, j) in self.edge_list])
+        m_plus = self.degree_edge_list[:, 0] + self.degree_edge_list[:, 1]
+        m_minus = self.degree_edge_list[:,
+                                        0] - self.degree_edge_list[:, 1]
+        m_mul = self.degree_edge_list[:, 0] * self.degree_edge_list[:, 1]
+        m_square_plus = self.degree_edge_list[:,
+                                              0] ** 2 + self.degree_edge_list[:, 1] ** 2
+        matrices = {
             "first_zagreb": m_plus,
             "second_zagreb": m_mul,
             "randic": 1 / np.sqrt(m_mul),
@@ -47,14 +48,15 @@ class BasicValues():
             "tri_zagreb_harmonic": m_plus * (m_square_plus + m_mul) / 2
         }
 
-        # return matrices
+        return matrices
 
     def compute_columnA(self):
 
-        self.columnA_values = {key: float(np.sum(value))
+        columnA_values = {key: float(np.sum(value))
                           for key, value in self.matrices.items()}
+        # print("colA:", all_values)
 
-        # return columnA_values
+        return columnA_values
 
     def entropy_sum(self, matrix, total_value):
         # if 0 in matrix:
@@ -66,12 +68,12 @@ class BasicValues():
         return -1 * float(np.sum((matrix / total_value) * np.log(matrix / total_value)))
 
     def compute_entropy(self):
-        self.entropy_values = {(key+str("_entropy")): self.entropy_sum(matrix,
-                                                                  self.columnA_values[key]) for key, matrix in self.matrices.items()}
+        entropy_values = {(key+str("_entropy")): self.entropy_sum(matrix,
+                                                                    self.columnA_values[key]) for key, matrix in self.matrices.items()}
         # print("colB:", entropy_matrices)
 
-        # return entropy_values
-
+        return entropy_values
+    
     def get_values(self):
         # return self.columnA_values
         return {**self.columnA_values, **self.entropy_values}

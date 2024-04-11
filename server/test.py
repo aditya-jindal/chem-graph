@@ -1,4 +1,4 @@
-from columnA import ColumnA
+from server.column_a import ColumnA
 import os
 
 file_path = os.path.join('data','FAR23.pdb')
