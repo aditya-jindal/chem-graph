@@ -4,8 +4,8 @@ import Loader from "./Loader";
 import FourColumnsTable from "./FourColumnsTable";
 
 function App() {
-  // const APILINK = "https://chem-graph.onrender.com/upload";
-  const APILINK = "http://localhost:5000/upload";
+  const APILINK = "https://chem-graph.onrender.com/upload";
+  // const APILINK = "http://localhost:5000/upload";
 
   const [file, setFile] = useState(null);
   const [values, setValues] = useState(undefined);
