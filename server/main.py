@@ -3,7 +3,7 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import os
 from graph import Graph
-from server.column_a import ColumnA
+from column_a import ColumnA
 
 app = Flask(__name__)
 CORS(app)
