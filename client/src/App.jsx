@@ -8,6 +8,9 @@ function App() {
     setFile(event.target.files[0]);
   };
 
+  // const APILINK = "http://localhost:5000/upload";
+  const APILINK = "https://chem-graph.onrender.com/upload";
+
   const onFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -15,7 +18,7 @@ function App() {
     formData.append("file", file);
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/upload", {
+      const response = await fetch(APILINK, {
         method: "POST",
         body: formData,
       });
