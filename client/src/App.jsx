@@ -8,8 +8,8 @@ function App() {
     setFile(event.target.files[0]);
   };
 
-  const APILINK = "http://localhost:5000/upload";
-  // const APILINK = "https://chem-graph.onrender.com/upload";
+  // const APILINK = "http://localhost:5000/upload";
+  const APILINK = "https://chem-graph.onrender.com/upload";
 
   const onFormSubmit = async (event) => {
     event.preventDefault();
