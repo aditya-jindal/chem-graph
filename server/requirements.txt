@@ -1,4 +1,6 @@
 flask
+flask_cors
+Werkzeug
 networkx
 numpy
 matplotlib
