@@ -55,7 +55,10 @@ function App() {
         </button>
       </form>
       {loading && <Loader />}
-      {values && <FourColumnsTable values={values} />}
+      {!error && !loading && values && (
+        // <FourColumnsTable values={values.four_columns} />
+        <FourColumnsTable values={values} />
+      )}
     </div>
   );
 }

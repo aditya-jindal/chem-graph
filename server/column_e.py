@@ -72,7 +72,7 @@ class ColumnE(ColumnAB):
         return matrices
 
     def compute_distance_indices(self):
-        indices = {key: np.sum(value)
+        indices = {key: float(np.sum(value))
                    for key, value in self.distance_matrices.items()}
 
         vertex_edge_distance = []
@@ -93,8 +93,8 @@ class ColumnE(ColumnAB):
 
         edge_edge_wiener_index = np.sum(edge_edge_distance)/2
 
-        indices = {**indices, "vertex_edge_wiener": vertex_edge_wiener_index,
-                   "edge_edge_wiener": edge_edge_wiener_index}
+        indices = {**indices, "vertex_edge_wiener": float(vertex_edge_wiener_index),
+                   "edge_edge_wiener": float(edge_edge_wiener_index)}
 
         return indices
 
