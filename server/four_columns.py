@@ -56,9 +56,9 @@ class FourColumns(BasicValues):
     def compute_entropy_indices(self):
         # used to be key + str("entropy")
         entropy_indices = {(key): self.entropy_sum(matrix,
-                                                                    self.degree_indices[key]) for key, matrix in self.matrices.items()}
+                                                   self.degree_indices[key]) for key, matrix in self.matrices.items()}
 
         return entropy_indices
-    
+
     def get_values(self):
         return {**self.degree_indices, **self.entropy_indices}

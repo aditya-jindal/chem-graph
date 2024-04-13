@@ -6,7 +6,7 @@ import numpy as np
 class ColumnCD(FourColumns):
     def __init__(self, file, testing=False):
         super().__init__(file, testing=testing)
-        
+
         self.m_plus_weighted, self.m_minus_weighted, self.m_mul_weighted, self.m_square_plus_weighted = self.compute_m_values()
         self.matrices = self.compute_matrices(
             self.m_plus_weighted, self.m_minus_weighted, self.m_mul_weighted, self.m_square_plus_weighted)

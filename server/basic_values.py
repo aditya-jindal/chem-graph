@@ -52,7 +52,7 @@ class BasicValues():
     def compute_columnA(self):
 
         self.columnA_values = {key: float(np.sum(value))
-                          for key, value in self.matrices.items()}
+                               for key, value in self.matrices.items()}
 
         # return columnA_values
 
@@ -67,7 +67,7 @@ class BasicValues():
 
     def compute_entropy(self):
         self.entropy_values = {(key+str("_entropy")): self.entropy_sum(matrix,
-                                                                  self.columnA_values[key]) for key, matrix in self.matrices.items()}
+                                                                       self.columnA_values[key]) for key, matrix in self.matrices.items()}
         # print("colB:", entropy_matrices)
 
         # return entropy_values
