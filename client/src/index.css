@@ -67,8 +67,6 @@ button:focus-visible {
   }
 }
 
-
-
 .loader-container {
   display: flex;
   flex-direction: column;

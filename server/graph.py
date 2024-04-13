@@ -9,7 +9,7 @@ class Graph():
     def __init__(self, file, testing=False):
         self.testing = testing
         self.file = file
-        self.G = self.create_graph()
+        self.graph = self.create_graph()
 
     def is_txt(self):
         if self.testing:

@@ -24,5 +24,5 @@ class ColumnAB(FourColumns):
 
         return m_plus, m_minus, m_mul, m_square_plus
 
-    def get_values(self):
+    def get_ab_values(self):
         return {"columnA: Degree Indices": self.degree_indices, "columnB: Degree Entropy": self.entropy_indices}

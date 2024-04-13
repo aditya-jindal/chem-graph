@@ -1,4 +1,5 @@
 from four_columns import FourColumns
+from column_ab import ColumnAB
 import networkx as nx
 import numpy as np
 

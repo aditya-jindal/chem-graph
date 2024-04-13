@@ -6,6 +6,7 @@ from graph import Graph
 from column_ab import ColumnAB
 from column_cd import ColumnCD
 from column_e import ColumnE
+from column_f import ColumnF
 
 app = Flask(__name__)
 CORS(app)
@@ -25,13 +26,18 @@ def upload_file():
     colAB_instance = ColumnAB(file)
     colCD_instance = ColumnCD(file)
     colE_instance = ColumnE(file)
-    computed_values_colAB = colAB_instance.get_values()
+    colF_instance = ColumnF(file)
+    # ab_values = colAB_instance.get_ab_values()
     computed_values_colCD = colCD_instance.get_values()
-    computed_values_colE = colE_instance.get_distance_indices()
+    # distance_indices = colE_instance.get_distance_indices()
+
+    distance_entropies = colF_instance.get_distance_entropies()
+    distance_indices = colF_instance.get_distance_indices()
+    ab_values = colF_instance.get_ab_values()
     return jsonify({'message': 'File uploaded successfully',
                     'data':
-                        {"four_columns": {**computed_values_colAB, **computed_values_colCD},
-                         "distance_indices": computed_values_colE
+                        {"four_columns": {**ab_values, **computed_values_colCD},
+                         "distance_columns": {**distance_indices, **distance_entropies}
                          }
                     }
                    ), 200

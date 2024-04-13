@@ -2,10 +2,11 @@ import { useState } from "react";
 import "./App.css";
 import Loader from "./Loader";
 import FourColumnsTable from "./FourColumnsTable";
+import DistanceColumnsTable from "./DistanceColumnsTable";
 
 function App() {
-  const APILINK = "https://chem-graph.onrender.com/upload";
-  // const APILINK = "http://localhost:5000/upload";
+  // const APILINK = "https://chem-graph.onrender.com/upload";
+  const APILINK = "http://localhost:5000/upload";
 
   const [file, setFile] = useState(null);
   const [values, setValues] = useState(undefined);
@@ -56,8 +57,11 @@ function App() {
       </form>
       {loading && <Loader />}
       {!error && !loading && values && (
-        // <FourColumnsTable values={values.four_columns} />
-        <FourColumnsTable values={values} />
+        // <FourColumnsTable values={values} />
+        <>
+          <FourColumnsTable values={values.four_columns} />
+          <DistanceColumnsTable values={values.distance_columns} />
+        </>
       )}
     </div>
   );
