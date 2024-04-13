@@ -65,5 +65,3 @@ class Graph():
     def get_graph(self):
         return self.G
     
-    def get_values(self):
-        return {'number_of_vertices': self.G.number_of_nodes(), 'number_of_edges': self.G.number_of_edges()}
