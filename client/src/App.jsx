@@ -56,7 +56,6 @@ function App() {
   return (
     <div>
       <h1>Chem Graph</h1>
-      {error && <p>Error Computing Values</p>}
       <form onSubmit={onFormSubmit}>
         <input
           type="file"
@@ -72,6 +71,7 @@ function App() {
           Upload
         </button>
       </form>
+      {error && <h2>Error Computing Values</h2>}
       {loading && <Loader />}
       {!error &&
         !loading &&
