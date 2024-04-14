@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useState } from "react";
 
 function FourColumnsTable({ values }) {
   const [query, setQuery] = useState("");
