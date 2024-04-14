@@ -23,9 +23,9 @@ def upload_file():
         return jsonify({'error': 'No selected file'}), 400
 
     filename = secure_filename(file.filename)
-    colAB_instance = ColumnAB(file)
+    # colAB_instance = ColumnAB(file)
     colCD_instance = ColumnCD(file)
-    colE_instance = ColumnE(file)
+    # colE_instance = ColumnE(file)
     colF_instance = ColumnF(file)
     # ab_values = colAB_instance.get_ab_values()
     computed_values_colCD = colCD_instance.get_values()
@@ -37,9 +37,10 @@ def upload_file():
     return jsonify({'message': 'File uploaded successfully',
                     'data':
                         {"four_columns": {**ab_values, **computed_values_colCD},
-                         "distance_columns": {**distance_indices, **distance_entropies}
-                         }
+                         "distance_indices": distance_indices,
+                         "distance_entropies": distance_entropies}
                     }
+
                    ), 200
 
 

@@ -60,7 +60,10 @@ function App() {
         // <FourColumnsTable values={values} />
         <>
           <FourColumnsTable values={values.four_columns} />
-          <DistanceColumnsTable values={values.distance_columns} />
+          <DistanceColumnsTable
+            distance_indices={values.distance_indices}
+            distance_entropies={values.distance_entropies}
+          />
         </>
       )}
     </div>
