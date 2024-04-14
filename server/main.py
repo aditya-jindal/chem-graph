@@ -12,7 +12,6 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route("/upload", methods=["POST"])
 def upload_file():
     if 'file' not in request.files:
         return jsonify({'error': 'No file part in the request'}), 400
@@ -22,23 +21,38 @@ def upload_file():
     if file.filename == '':
         return jsonify({'error': 'No selected file'}), 400
 
-    filename = secure_filename(file.filename)
-    # colAB_instance = ColumnAB(file)
+    return file
+
+
+@app.route("/degree_based", methods=["POST"])
+def degree_based():
+    file = upload_file()
+    colAB_instance = ColumnAB(file)
     colCD_instance = ColumnCD(file)
-    # colE_instance = ColumnE(file)
+    ab_values = colAB_instance.get_ab_values()
+    cd_values = colCD_instance.get_values()
+    return jsonify({'message': 'File uploaded successfully',
+                    'data':
+                        {"four_columns": {**ab_values, **cd_values},
+                         }
+                    }
+
+                   ), 200
+
+
+@app.route("/distance_based", methods=["POST"])
+def distance_based():
+    file = upload_file()
     colF_instance = ColumnF(file)
-    # ab_values = colAB_instance.get_ab_values()
-    computed_values_colCD = colCD_instance.get_values()
-    # distance_indices = colE_instance.get_distance_indices()
 
     distance_entropies = colF_instance.get_distance_entropies()
     distance_indices = colF_instance.get_distance_indices()
-    ab_values = colF_instance.get_ab_values()
     return jsonify({'message': 'File uploaded successfully',
                     'data':
-                        {"four_columns": {**ab_values, **computed_values_colCD},
-                         "distance_indices": distance_indices,
-                         "distance_entropies": distance_entropies}
+                        {
+                            "distance_indices": distance_indices,
+                            "distance_entropies": distance_entropies
+                        }
                     }
 
                    ), 200

@@ -105,3 +105,12 @@ button:focus-visible {
     background-position: 0% 50%, 50% 50%, 100% 100%;
   }
 }
+
+select {
+  margin-right: 1rem;
+  padding: 9px;
+  font-size: .9em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+}
