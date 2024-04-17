@@ -10,7 +10,7 @@ function DistanceColumnsTable({ distance_indices, distance_entropies }) {
     if (substring.length === 0) return object;
     const entries = Object.entries(object);
     const filteredEntries = entries.filter(([key]) => {
-      return key.includes(substring);
+      return key.toLowerCase().includes(substring.toLowerCase());
     });
     const filteredObject = Object.fromEntries(filteredEntries);
     return filteredObject;

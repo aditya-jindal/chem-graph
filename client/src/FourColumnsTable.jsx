@@ -1,4 +1,4 @@
-import {useState } from "react";
+import { useState } from "react";
 
 function FourColumnsTable({ values }) {
   const [query, setQuery] = useState("");
@@ -10,7 +10,7 @@ function FourColumnsTable({ values }) {
     if (substring.length === 0) return object;
     const entries = Object.entries(object);
     const filteredEntries = entries.filter(([key]) => {
-      return key.includes(substring);
+      return key.toLowerCase().includes(substring.toLowerCase());
     });
     const filteredObject = Object.fromEntries(filteredEntries);
     return filteredObject;
