@@ -80,8 +80,8 @@ function App() {
           <FourColumnsTable values={values.four_columns} />
         ) : (
           <DistanceColumnsTable
-            distance_indices={values.distance_indices}
-            distance_entropies={values.distance_entropies}
+            distance_indices={values["Distance Indices"]}
+            distance_entropies={values["Distance Entropies"]}
           />
         ))}
     </div>

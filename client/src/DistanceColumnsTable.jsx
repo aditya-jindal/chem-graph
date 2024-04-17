@@ -19,7 +19,7 @@ function DistanceColumnsTable({ distance_indices, distance_entropies }) {
   const queryResults1 = filterObject(distance_indices, query);
   const queryResults2 = filterObject(distance_entropies, query);
   const keys = queryResults1 && Object.keys(queryResults1);
-  
+
   return (
     <>
       <h2>Distance Based Values</h2>
