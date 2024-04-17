@@ -51,26 +51,20 @@ class BasicValues(Graph):
         self.columnA_values = {key: float(np.sum(value))
                                for key, value in self.matrices.items()}
 
-        # return columnA_values
 
     def entropy_sum(self, matrix, total_value):
         # if 0 in matrix:
         #     return "indeterminate"
-        matrix = np.where(matrix == 0, 1, matrix)
         if total_value == 0:
             return "indeterminate"
 
-        return -1 * float(np.sum((matrix / total_value) * np.log(matrix / total_value)))
+        return -1 * float(np.sum((np.nonzero(matrix) / total_value) * np.log(np.nonzero(matrix) / total_value)))
 
     def compute_entropy(self):
         self.entropy_values = {(key+str("_entropy")): self.entropy_sum(matrix,
                                                                        self.columnA_values[key]) for key, matrix in self.matrices.items()}
-        # print("colB:", entropy_matrices)
-
-        # return entropy_values
 
     def get_values(self):
-        # return self.columnA_values
         return {**self.columnA_values, **self.entropy_values}
 
     def capitalize_dictionary(self, dictionary):
