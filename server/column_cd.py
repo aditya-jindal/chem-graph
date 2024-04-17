@@ -35,4 +35,4 @@ class ColumnCD(FourColumns):
         return m_plus_weighted, m_minus_weighted, m_mul_weighted, m_square_plus_weighted
 
     def get_values(self):
-        return {"columnC: Degree Sum Indices": self.degree_indices, "columnD: Degree Sum Entropy": self.entropy_indices}
+        return {"Column C: Degree Sum Indices": self.capitalize_dictionary(self.degree_indices), "Column D: Degree Sum Entropy": self.capitalize_dictionary(self.entropy_indices)}

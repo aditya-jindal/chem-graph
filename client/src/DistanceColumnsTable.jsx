@@ -39,10 +39,10 @@ function DistanceColumnsTable({ distance_indices, distance_entropies }) {
                   />
                 </th>
                 <th style={{ border: "1px solid black", padding: "10px" }}>
-                  distance_indices
+                  Distance Indices
                 </th>
                 <th style={{ border: "1px solid black", padding: "10px" }}>
-                  distance_entropies
+                  Distance Entropies
                 </th>
               </tr>
             </thead>

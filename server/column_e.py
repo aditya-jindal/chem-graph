@@ -99,4 +99,4 @@ class ColumnE(ColumnAB):
         return indices
 
     def get_distance_indices(self):
-        return self.distance_indices
+        return self.capitalize_dictionary(self.distance_indices)

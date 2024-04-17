@@ -9,4 +9,4 @@ class ColumnF(ColumnE):
                                    for key, matrix in self.distance_matrices.items()}
 
     def get_distance_entropies(self):
-        return self.distance_entropies
+        return self.capitalize_dictionary(self.distance_entropies)

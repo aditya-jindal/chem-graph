@@ -72,3 +72,6 @@ class BasicValues(Graph):
     def get_values(self):
         # return self.columnA_values
         return {**self.columnA_values, **self.entropy_values}
+
+    def capitalize_dictionary(self, dictionary):
+        return {key.replace('_', ' ').title(): value for key, value in dictionary.items()}

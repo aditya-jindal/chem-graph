@@ -50,8 +50,8 @@ def distance_based():
     return jsonify({'message': 'File uploaded successfully',
                     'data':
                         {
-                            "distance_indices": distance_indices,
-                            "distance_entropies": distance_entropies
+                            "Distance Indices": distance_indices,
+                            "Distance Entropies": distance_entropies
                         }
                     }
 
