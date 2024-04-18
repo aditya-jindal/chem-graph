@@ -2,6 +2,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+from pyvis.network import Network
 
 
 class Graph():
@@ -13,8 +14,8 @@ class Graph():
 
     def is_txt(self):
         if self.testing:
-            _, file_extension = os.path.splitext(self.file.name) 
-        else:          
+            _, file_extension = os.path.splitext(self.file.name)
+        else:
             _, file_extension = os.path.splitext(self.file.filename)
 
         return file_extension == '.txt'
@@ -64,4 +65,11 @@ class Graph():
 
     def get_graph(self):
         return self.G
-    
+
+    def get_graph_plot(self):
+        nt = Network('500px', '500px')
+        nt.from_nx(self.graph)
+        html_str = nt.write_html('temp.html')
+        with open('temp.html', 'r') as f:
+            html_str = f.read()
+        return html_str

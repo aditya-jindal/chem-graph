@@ -1,11 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from werkzeug.utils import secure_filename
-import os
-from graph import Graph
 from column_ab import ColumnAB
 from column_cd import ColumnCD
-from column_e import ColumnE
 from column_f import ColumnF
 
 app = Flask(__name__)
@@ -31,9 +27,11 @@ def degree_based():
     colCD_instance = ColumnCD(file)
     ab_values = colAB_instance.get_ab_values()
     cd_values = colCD_instance.get_values()
+    graph_plot = colAB_instance.get_graph_plot()
     return jsonify({'message': 'File uploaded successfully',
                     'data':
                         {"four_columns": {**ab_values, **cd_values},
+                         "graph": graph_plot
                          }
                     }
 
@@ -47,11 +45,14 @@ def distance_based():
 
     distance_entropies = colF_instance.get_distance_entropies()
     distance_indices = colF_instance.get_distance_indices()
+    graph_plot = colF_instance.get_graph_plot()
     return jsonify({'message': 'File uploaded successfully',
                     'data':
                         {
                             "Distance Indices": distance_indices,
-                            "Distance Entropies": distance_entropies
+                            "Distance Entropies": distance_entropies,
+                            "graph": graph_plot
+
                         }
                     }
 

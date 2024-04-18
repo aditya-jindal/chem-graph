@@ -3,11 +3,13 @@ import "./App.css";
 import Loader from "./Loader";
 import FourColumnsTable from "./FourColumnsTable";
 import DistanceColumnsTable from "./DistanceColumnsTable";
+import ChartComponent from "./chartComponent";
 
 function App() {
   const APILINK = "https://chem-graph.onrender.com";
   // const APILINK = "http://localhost:5000";
 
+  const [chartHTML, setChartHTML] = useState("");
   const [file, setFile] = useState(null);
   const [values, setValues] = useState(undefined);
   const [loading, setLoading] = useState(false);
@@ -46,6 +48,7 @@ function App() {
       const data = await response.json();
       console.log(data);
       setValues(data.data);
+      setChartHTML(data.data.graph);
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -53,6 +56,7 @@ function App() {
       setError(true);
     }
   };
+
   return (
     <div>
       <h1>Chem Graph</h1>
@@ -77,12 +81,18 @@ function App() {
         !loading &&
         values &&
         (selectedOption === "Degree Based Values" ? (
-          <FourColumnsTable values={values.four_columns} />
+          <>
+            <ChartComponent chartHTML={chartHTML} />
+            <FourColumnsTable values={values.four_columns} />
+          </>
         ) : (
-          <DistanceColumnsTable
-            distance_indices={values["Distance Indices"]}
-            distance_entropies={values["Distance Entropies"]}
-          />
+          <>
+            <ChartComponent chartHTML={chartHTML} />
+            <DistanceColumnsTable
+              distance_indices={values["Distance Indices"]}
+              distance_entropies={values["Distance Entropies"]}
+            />
+          </>
         ))}
     </div>
   );
