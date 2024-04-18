@@ -28,10 +28,14 @@ def degree_based():
     ab_values = colAB_instance.get_ab_values()
     cd_values = colCD_instance.get_values()
     graph_plot = colAB_instance.get_graph_plot()
+    edge_count = colAB_instance.get_edge_count()
+    vertices_count = colAB_instance.get_vertices_count()
     return jsonify({'message': 'File uploaded successfully',
                     'data':
                         {"four_columns": {**ab_values, **cd_values},
-                         "graph": graph_plot
+                         "graph": graph_plot,
+                         "edgeCount": edge_count,
+                         "verticesCount": vertices_count
                          }
                     }
 
@@ -46,13 +50,16 @@ def distance_based():
     distance_entropies = colF_instance.get_distance_entropies()
     distance_indices = colF_instance.get_distance_indices()
     graph_plot = colF_instance.get_graph_plot()
+    edge_count = colF_instance.get_edge_count()
+    vertices_count = colF_instance.get_vertices_count()
     return jsonify({'message': 'File uploaded successfully',
                     'data':
                         {
                             "Distance Indices": distance_indices,
                             "Distance Entropies": distance_entropies,
-                            "graph": graph_plot
-
+                            "graph": graph_plot,
+                            "edgeCount": edge_count,
+                            "verticesCount": vertices_count
                         }
                     }
 

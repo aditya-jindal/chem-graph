@@ -51,7 +51,6 @@ class BasicValues(Graph):
         self.columnA_values = {key: float(np.sum(value))
                                for key, value in self.matrices.items()}
 
-
     def entropy_sum(self, matrix, total_value):
         # if 0 in matrix:
         #     return "indeterminate"
@@ -69,3 +68,9 @@ class BasicValues(Graph):
 
     def capitalize_dictionary(self, dictionary):
         return {key.replace('_', ' ').title(): value for key, value in dictionary.items()}
+
+    def get_edge_count(self):
+        return self.num_edges
+
+    def get_vertices_count(self):
+        return self.num_vertices

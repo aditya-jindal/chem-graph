@@ -82,7 +82,11 @@ function App() {
         values &&
         (selectedOption === "Degree Based Values" ? (
           <>
-            <ChartComponent chartHTML={chartHTML} />
+            <ChartComponent
+              chartHTML={chartHTML}
+              edgeCount={values.edgeCount}
+              verticesCount={values.verticesCount}
+            />
             <FourColumnsTable values={values.four_columns} />
           </>
         ) : (

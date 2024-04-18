@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const ChartComponent = ({ chartHTML }) => {
+const ChartComponent = ({ chartHTML, edgeCount, verticesCount }) => {
   const ref = useRef();
 
   useEffect(() => {
@@ -19,7 +19,17 @@ const ChartComponent = ({ chartHTML }) => {
     }
   }, [chartHTML]);
 
-  return <div ref={ref} />;
+  return (
+    <div style={{ position: "relative" }}>
+      <div ref={ref} />
+      <div
+        style={{ position: "absolute", top: "10%", right: "7%", width: "45%" }}
+      >
+        <p>Number of edges: {edgeCount}</p>
+        <p>Number of vertices: {verticesCount}</p>
+      </div>
+    </div>
+  );
 };
 
 export default ChartComponent;
