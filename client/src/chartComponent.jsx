@@ -25,8 +25,8 @@ const ChartComponent = ({ chartHTML, edgeCount, verticesCount }) => {
       <div
         style={{ position: "absolute", top: "10%", right: "7%", width: "45%" }}
       >
-        <p>Number of edges: {edgeCount}</p>
         <p>Number of vertices: {verticesCount}</p>
+        <p>Number of edges: {edgeCount}</p>
       </div>
     </div>
   );

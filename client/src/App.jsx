@@ -91,7 +91,11 @@ function App() {
           </>
         ) : (
           <>
-            <ChartComponent chartHTML={chartHTML} />
+            <ChartComponent
+              chartHTML={chartHTML}
+              edgeCount={values.edgeCount}
+              verticesCount={values.verticesCount}
+            />
             <DistanceColumnsTable
               distance_indices={values["Distance Indices"]}
               distance_entropies={values["Distance Entropies"]}
