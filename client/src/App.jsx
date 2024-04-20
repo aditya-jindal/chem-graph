@@ -1,13 +1,26 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import Loader from "./Loader";
 import FourColumnsTable from "./FourColumnsTable";
 import DistanceColumnsTable from "./DistanceColumnsTable";
 import ChartComponent from "./chartComponent";
+import * as NGL from "ngl";
 
 function App() {
-  const APILINK = "https://chem-graph.onrender.com";
-  // const APILINK = "http://localhost:5000";
+  // const APILINK = "https://chem-graph.onrender.com";
+  const APILINK = "http://localhost:5000";
+
+  // testing area start
+  const stageRef = useRef(null);
+  const fileRef = useRef(null);
+  useEffect(() => {
+    stageRef.current = new NGL.Stage("viewport");
+    return () => {
+      stageRef.current.dispose();
+    };
+  }, []);
+
+  // testing area end
 
   const [chartHTML, setChartHTML] = useState("");
   const [file, setFile] = useState(null);
@@ -15,48 +28,51 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const onFileChange = (event) => {
-    setFile(event.target.files[0]);
-  };
+    const newFile = event.target.files[0];
+    setFile(newFile);
+    fileRef.current = newFile;
 
+    stageRef.current
+      .loadFile(URL.createObjectURL(newFile), { ext: "pdb" })
+      .then(function (component) {
+        component.addRepresentation("surface");
+        stageRef.current.autoView();
+      })
+      .catch((error) => {
+        console.error("Error loading PDB file:", error);
+      });
+  };
   const [selectedOption, setSelectedOption] = useState("Degree Based Values");
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
-  const onFormSubmit = async (event) => {
-    event.preventDefault();
-
-    const formData = new FormData();
-    formData.append("file", file);
-
+  const onFormSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    console.log("hi");
+    console.log(file);
     try {
-      setError(false);
-      setLoading(true);
-      const response = await fetch(
-        `${APILINK}/${
-          selectedOption === "Degree Based Values"
-            ? "degree_based"
-            : "distance_based"
-        }`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const stage = new NGL.Stage("viewport");
 
-      const data = await response.json();
-      console.log(data);
-      setValues(data.data);
-      setChartHTML(data.data.graph);
+      // Load PDB data into NGL Stage
+      stage
+        .loadFile(file, { ext: "pdb" })
+        .then(function (component) {
+          component.addRepresentation("cartoon"); // Change representation type
+          stage.autoView();
+        })
+        .catch(function (error) {
+          console.error("Error loading PDB file:", error); // Log any errors
+        });
+    } catch (err) {
+      setError(err.message);
+    } finally {
       setLoading(false);
-    } catch (error) {
-      console.error(error);
-      setLoading(false);
-      setError(true);
     }
   };
-
   return (
     <div>
       <h1>Chem Graph</h1>
@@ -75,6 +91,8 @@ function App() {
           Upload
         </button>
       </form>
+      <div id="viewport" style={{ width: "600px", height: "400px" }}></div>
+
       {error && <h2>Error Computing Values</h2>}
       {loading && <Loader />}
       {!error &&
