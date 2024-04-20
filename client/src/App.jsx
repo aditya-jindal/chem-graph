@@ -4,10 +4,26 @@ import Loader from "./Loader";
 import FourColumnsTable from "./FourColumnsTable";
 import DistanceColumnsTable from "./DistanceColumnsTable";
 import ChartComponent from "./chartComponent";
+import ProteinViewer, { ViewerStage } from "@jowillianto/ngl-viewer/dist";
+// import { ComponentUIDataT } from "@jowillianto/ngl-viewer/dist/ngl-viewer/user-interface/component-data";
 
 function App() {
-  const APILINK = "https://chem-graph.onrender.com";
-  // const APILINK = "http://localhost:5000";
+  // const APILINK = "https://chem-graph.onrender.com";
+  const APILINK = "http://localhost:5000";
+  const component = {
+    type: "file",
+    props: {
+      file: "../../server/data/FAR23.pdb",
+      fileSettings: {},
+      viewSettings: [
+        {
+          type: "cartoon",
+          params: {},
+        },
+      ],
+    },
+    config: {},
+  };
 
   const [chartHTML, setChartHTML] = useState("");
   const [file, setFile] = useState(null);
@@ -59,6 +75,9 @@ function App() {
 
   return (
     <div>
+      {/* <ProteinViewer initialComponents={[component]}>
+        <ViewerStage height="800px" width="800px" />
+      </ProteinViewer> */}
       <h1>Chem Graph</h1>
       <form onSubmit={onFormSubmit}>
         <input

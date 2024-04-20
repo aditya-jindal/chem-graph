@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@jowillianto/ngl-viewer": "github:jowillianto/ngl-viewer#stable",
+    "ngl": "^2.2.2"
+  }
+}
