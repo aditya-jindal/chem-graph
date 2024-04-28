@@ -4,6 +4,7 @@ import Loader from "./Loader";
 import FourColumnsTable from "./FourColumnsTable";
 import DistanceColumnsTable from "./DistanceColumnsTable";
 import ChartComponent from "./chartComponent";
+import Spline from "@splinetool/react-spline";
 
 function App() {
   const APILINK = "https://chem-graph.onrender.com";
@@ -58,8 +59,19 @@ function App() {
   };
 
   return (
-    <div>
-      <h1>Chem Graph</h1>
+    <div style={{textAlign:"center"}}>
+      <div style={{ position: "relative" }}>
+        <Spline
+          style={{
+            position: "absolute",
+            top: "0",
+            left: "0",
+            width: "20%",
+          }}
+          scene="https://prod.spline.design/9NYWdodoCJuvjZdX/scene.splinecode"
+        />
+        <h1>Chem Graph</h1>
+      </div>
       <form onSubmit={onFormSubmit}>
         <input
           type="file"
