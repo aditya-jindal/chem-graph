@@ -1,3 +1,4 @@
+import awsgi
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from column_ab import ColumnAB
@@ -64,6 +65,10 @@ def distance_based():
                     }
 
                    ), 200
+
+
+def lambda_handler(event, context):
+    return awsgi.response(app, event, context, base64_content_types={"image/png"})
 
 
 if __name__ == "__main__":
