@@ -21,6 +21,11 @@ def upload_file():
     return file
 
 
+@app.route("/", methods=["GET"])
+def hello_world():
+    return "Hello World"
+
+
 @app.route("/degree_based", methods=["POST"])
 def degree_based():
     file = upload_file()
@@ -68,7 +73,16 @@ def distance_based():
 
 
 def lambda_handler(event, context):
-    return awsgi.response(app, event, context, base64_content_types={"image/png"})
+    print("og event:", event)
+    event["httpMethod"] = event.get("requestContext").get("http").get("method")
+    event["path"] = event.get("requestContext").get("http").get("path")
+    event['queryStringParameters'] = {}
+    awsgi_response = awsgi.response(
+        app, event, context, base64_content_types={"image/png"})
+    del awsgi_response["headers"]["Access-Control-Allow-Origin"]
+    awsgi_response["headers"]["Access-Control-Allow-Credentials"] = True
+
+    return awsgi_response
 
 
 if __name__ == "__main__":

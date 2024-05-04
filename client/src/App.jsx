@@ -9,6 +9,7 @@ import Spline from "@splinetool/react-spline";
 function App() {
   const APILINK = "https://chem-graph.onrender.com";
   // const APILINK = "http://localhost:5000";
+  // const APILINK = "https://vpqebjeug2dtqoi3exx6nlfdta0jnxyl.lambda-url.us-east-1.on.aws";
 
   const [chartHTML, setChartHTML] = useState("");
   const [file, setFile] = useState(null);
@@ -45,7 +46,7 @@ function App() {
           body: formData,
         }
       );
-
+      console.log(response)
       const data = await response.json();
       console.log(data);
       setValues(data.data);

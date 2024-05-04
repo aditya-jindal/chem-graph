@@ -3,6 +3,5 @@ flask_cors
 networkx
 numpy
 matplotlib
-scipy
 Gunicorn
 pyvis
