@@ -1,17 +1,34 @@
 from column_ab import ColumnAB
 import networkx as nx
 import numpy as np
+from igraph import Graph as igraph
+import time
 
 
 class ColumnE(ColumnAB):
     def __init__(self, file, testing=False):
         super().__init__(file, testing=testing)
-        self.dist_matrix = nx.floyd_warshall_numpy(
-            self.graph, nodelist=sorted(self.graph.nodes))
+        self.dist_matrix = self.floyd_warshall_igraph()
         self.nu_nv = self.compute_nu_nv()
         self.mu_mv = self.compute_mu_mv()
         self.distance_matrices = self.compute_distance_matrices()
         self.distance_indices = self.compute_distance_indices()
+
+    def nx_to_igraph(self, nx_graph):
+        edges = [(e[0], e[1]) for e in nx_graph.edges()]
+
+        return igraph(edges=edges, directed=False)
+
+    def calculate_shortest_path_matrix(self, igraph_graph):
+        shortest_paths = np.array(igraph_graph.shortest_paths())
+
+        return shortest_paths
+
+    def floyd_warshall_igraph(self):
+        ig = self.nx_to_igraph(self.graph)
+        shortest_paths_matrix = self.calculate_shortest_path_matrix(ig)
+
+        return shortest_paths_matrix[1:, 1:]
 
     def compute_nu_nv(self):
         nu_nv = []
