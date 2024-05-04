@@ -2,7 +2,6 @@ from column_ab import ColumnAB
 import networkx as nx
 import numpy as np
 from igraph import Graph as igraph
-import time
 
 
 class ColumnE(ColumnAB):
@@ -33,29 +32,34 @@ class ColumnE(ColumnAB):
     def compute_nu_nv(self):
         nu_nv = []
         for u, v in self.graph.edges:
-            count_u = 0
-            count_v = 0
-            for node in self.graph.nodes:
-                if (self.dist_matrix[u-1][node-1] > self.dist_matrix[v-1][node-1]):
-                    count_v += 1
-                elif (self.dist_matrix[u-1][node-1] < self.dist_matrix[v-1][node-1]):
-                    count_u += 1
+            dist_u = self.dist_matrix[u-1]
+            dist_v = self.dist_matrix[v-1]
+            count_u = np.sum(dist_u < dist_v)
+            count_v = np.sum(dist_u > dist_v)
             nu_nv.append([count_u, count_v])
         nu_nv = np.array(nu_nv)
+
         return nu_nv
 
     def compute_mu_mv(self):
         mu_mv = []
+        intermediate_edge_list = np.array(self.graph.edges)
+        edge_list = intermediate_edge_list[:, 0] - 1
+        edge_list_other = intermediate_edge_list[:, 1] - 1
         for u, v in self.graph.edges:
-            count_u = 0
-            count_v = 0
-            for x, y in self.graph.edges:
-                if (self.dist_matrix[u-1][x-1] > self.dist_matrix[v-1][x-1] and self.dist_matrix[u-1][y-1] > self.dist_matrix[v-1][y-1]):
-                    count_v += 1
-                elif (self.dist_matrix[u-1][x-1] < self.dist_matrix[v-1][x-1] and self.dist_matrix[u-1][y-1] < self.dist_matrix[v-1][y-1]):
-                    count_u += 1
+            dist_u = self.dist_matrix[u-1]
+            dist_v = self.dist_matrix[v-1]
+            dist_u_edges = dist_u[edge_list]
+            dist_v_edges = dist_v[edge_list]
+            dist_u_edges_other = dist_u[edge_list_other]
+            dist_v_edges_other = dist_v[edge_list_other]
+            count_u = np.sum((dist_u_edges < dist_v_edges) & (
+                dist_u_edges_other < dist_v_edges_other))
+            count_v = np.sum((dist_u_edges > dist_v_edges) & (
+                dist_u_edges_other > dist_v_edges_other))
             mu_mv.append([count_u, count_v])
         mu_mv = np.array(mu_mv)
+
         return mu_mv
 
     def compute_distance_matrices(self):
