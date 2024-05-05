@@ -4,6 +4,8 @@ import numpy as np
 from igraph import Graph as igraph
 import time
 
+SAVE_MEM = np.float32
+
 
 class ColumnE(ColumnAB):
     def __init__(self, file, testing=False):
@@ -20,7 +22,8 @@ class ColumnE(ColumnAB):
         return igraph(edges=edges, directed=False)
 
     def calculate_shortest_path_matrix(self, igraph_graph):
-        shortest_paths = np.array(igraph_graph.shortest_paths())
+        shortest_paths = np.array(
+            igraph_graph.shortest_paths(), dtype=SAVE_MEM)
 
         return shortest_paths
 
@@ -38,7 +41,7 @@ class ColumnE(ColumnAB):
             count_u = np.sum(dist_u < dist_v)
             count_v = np.sum(dist_u > dist_v)
             nu_nv.append([count_u, count_v])
-        nu_nv = np.array(nu_nv)
+        nu_nv = np.array(nu_nv, dtype=SAVE_MEM)
 
         return nu_nv
 
@@ -59,7 +62,7 @@ class ColumnE(ColumnAB):
             count_v = np.sum((dist_u_edges > dist_v_edges) & (
                 dist_u_edges_other > dist_v_edges_other))
             mu_mv.append([count_u, count_v])
-        mu_mv = np.array(mu_mv)
+        mu_mv = np.array(mu_mv, dtype=SAVE_MEM)
 
         return mu_mv
 
@@ -98,24 +101,20 @@ class ColumnE(ColumnAB):
         for key, value in self.distance_matrices.items():
             indices[key] = float(np.sum(value))
 
-        node_indices = np.arange(1, len(self.graph.nodes) + 1)
-        dist_matrix = self.dist_matrix
-
-        node_edge_distances = np.minimum(dist_matrix[:, np.array([e[0] - 1 for e in self.graph.edges])],
-                                         dist_matrix[:, np.array([e[1] - 1 for e in self.graph.edges])])
+        node_edge_distances = np.minimum(self.dist_matrix[:, np.array([e[0] - 1 for e in self.graph.edges])],
+                                         self.dist_matrix[:, np.array([e[1] - 1 for e in self.graph.edges])])
         vertex_edge_wiener_index = np.sum(node_edge_distances) / 2
-
 
         edge_indices = np.array([e[0] - 1 for e in self.graph.edges])
         edge_indices_other = np.array([e[1] - 1 for e in self.graph.edges])
         edge_edge_distances = []
         for u, v in self.graph.edges:
-            u_dist = dist_matrix[u - 1]
-            v_dist = dist_matrix[v - 1]
+            u_dist = self.dist_matrix[u - 1]
+            v_dist = self.dist_matrix[v - 1]
             one_edge_edge_distance = np.minimum(np.minimum(u_dist[edge_indices], u_dist[edge_indices_other]),
                                                 np.minimum(v_dist[edge_indices], v_dist[edge_indices_other]))
             edge_edge_distances.append(one_edge_edge_distance)
-        edge_edge_distances = np.array(edge_edge_distances)
+        edge_edge_distances = np.array(edge_edge_distances, dtype=SAVE_MEM)
         edge_edge_wiener_index = np.sum(edge_edge_distances) / 2
 
         indices["vertex_edge_wiener"] = float(vertex_edge_wiener_index)
