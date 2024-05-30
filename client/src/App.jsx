@@ -7,9 +7,9 @@ import ChartComponent from "./chartComponent";
 import Spline from "@splinetool/react-spline";
 
 function App() {
-  const APILINK = "https://chem-graph.onrender.com";
+  // const APILINK = "https://chem-graph.onrender.com";
   // const APILINK = "http://localhost:5000";
-  // const APILINK = "https://vpqebjeug2dtqoi3exx6nlfdta0jnxyl.lambda-url.us-east-1.on.aws";
+  const APILINK = "https://vpqebjeug2dtqoi3exx6nlfdta0jnxyl.lambda-url.us-east-1.on.aws";
 
   const [chartHTML, setChartHTML] = useState("");
   const [file, setFile] = useState(null);
@@ -62,7 +62,7 @@ function App() {
   return (
     <div style={{textAlign:"center"}}>
       <div style={{ position: "relative" }}>
-        <Spline
+        {/* <Spline
           style={{
             position: "absolute",
             top: "0",
@@ -70,7 +70,7 @@ function App() {
             width: "20%",
           }}
           scene="https://prod.spline.design/9NYWdodoCJuvjZdX/scene.splinecode"
-        />
+        /> */}
         <h1>Chem Graph</h1>
       </div>
       <form onSubmit={onFormSubmit}>
@@ -95,20 +95,20 @@ function App() {
         values &&
         (selectedOption === "Degree Based Values" ? (
           <>
-            <ChartComponent
+            {/* <ChartComponent
               chartHTML={chartHTML}
               edgeCount={values.edgeCount}
               verticesCount={values.verticesCount}
-            />
+            /> */}
             <FourColumnsTable values={values.four_columns} />
           </>
         ) : (
           <>
-            <ChartComponent
+            {/* <ChartComponent
               chartHTML={chartHTML}
               edgeCount={values.edgeCount}
               verticesCount={values.verticesCount}
-            />
+            /> */}
             <DistanceColumnsTable
               distance_indices={values["Distance Indices"]}
               distance_entropies={values["Distance Entropies"]}
