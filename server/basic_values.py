@@ -47,17 +47,14 @@ class BasicValues(Graph):
         # return matrices
 
     def compute_columnA(self):
-
         self.columnA_values = {key: float(np.sum(value))
                                for key, value in self.matrices.items()}
-
-    def entropy_sum(self, matrix, total_value):
-        # if 0 in matrix:
-        #     return "indeterminate"
+    
+    def entropy_sum(self, matrix, total_value):     
+        matrix = matrix[matrix != 0]
         if total_value == 0:
             return "indeterminate"
-
-        return -1 * float(np.sum((np.nonzero(matrix) / total_value) * np.log(np.nonzero(matrix) / total_value)))
+        return -1 * float(np.sum((matrix / total_value) * np.log(matrix / total_value)))
 
     def compute_entropy(self):
         self.entropy_values = {(key+str("_entropy")): self.entropy_sum(matrix,

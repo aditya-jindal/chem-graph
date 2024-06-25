@@ -44,15 +44,6 @@ class FourColumns(BasicValues):
 
         return degree_indices
 
-    def entropy_sum(self, matrix, total_value):
-        # if 0 in matrix:
-        #     return "indeterminate"
-        matrix = np.where(matrix == 0, 1, matrix)
-        if total_value == 0:
-            return "indeterminate"
-
-        return -1 * float(np.sum((matrix / total_value) * np.log(matrix / total_value)))
-
     def compute_entropy_indices(self):
         # used to be key + str("entropy")
         entropy_indices = {(key): self.entropy_sum(matrix,
