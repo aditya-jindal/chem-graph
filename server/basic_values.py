@@ -18,7 +18,7 @@ class BasicValues(Graph):
         self.matrices = {
             "first_zagreb": m_plus,
             "second_zagreb": m_mul,
-            "randic": 1 / np.sqrt(m_mul),
+            "randić": 1 / np.sqrt(m_mul),
             "atom_bond_connectivity": np.sqrt((m_plus - 2) / m_mul),
             "harmonic": 2 / m_plus,
             "sum_connectivity": 1 / np.sqrt(m_plus),
@@ -49,8 +49,8 @@ class BasicValues(Graph):
     def compute_columnA(self):
         self.columnA_values = {key: float(np.sum(value))
                                for key, value in self.matrices.items()}
-    
-    def entropy_sum(self, matrix, total_value):     
+
+    def entropy_sum(self, matrix, total_value):
         matrix = matrix[matrix != 0]
         if total_value == 0:
             return "indeterminate"

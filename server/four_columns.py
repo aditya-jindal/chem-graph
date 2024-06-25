@@ -10,7 +10,7 @@ class FourColumns(BasicValues):
         matrices = {
             "first_zagreb": m_plus,
             "second_zagreb": m_mul,
-            "randic": 1 / np.sqrt(m_mul),
+            "randić": 1 / np.sqrt(m_mul),
             "atom_bond_connectivity": np.sqrt((m_plus - 2) / m_mul),
             "harmonic": 2 / m_plus,
             "sum_connectivity": 1 / np.sqrt(m_plus),
