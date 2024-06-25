@@ -115,10 +115,10 @@ class ColumnE(ColumnAB):
                                                 np.minimum(v_dist[edge_indices], v_dist[edge_indices_other]))
             edge_edge_distances.append(one_edge_edge_distance)
         edge_edge_distances = np.array(edge_edge_distances, dtype=SAVE_MEM)
-        edge_edge_wiener_index = np.sum(edge_edge_distances) / 2
+        edge_wiener_index = np.sum(edge_edge_distances) / 2
 
         indices["vertex_edge_wiener"] = float(vertex_edge_wiener_index)
-        indices["edge_edge_wiener"] = float(edge_edge_wiener_index)
+        indices["edge_wiener"] = float(edge_wiener_index)
 
         return indices
 
