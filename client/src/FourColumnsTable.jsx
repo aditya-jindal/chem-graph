@@ -18,20 +18,20 @@ function FourColumnsTable({ values }) {
   function filterObjectObject(object, substring) {
     if (substring.length === 0) return object;
     let filteredObject = {};
-    filteredObject["Column A: Degree Indices"] = filterObject(
-      object["Column A: Degree Indices"],
+    filteredObject[" Degree Based Indices"] = filterObject(
+      object[" Degree Based Indices"],
       substring
     );
-    filteredObject["Column B: Degree Entropy"] = filterObject(
-      object["Column B: Degree Entropy"],
+    filteredObject[" Degree Based Entropies"] = filterObject(
+      object[" Degree Based Entropies"],
       substring
     );
-    filteredObject["Column C: Degree Sum Indices"] = filterObject(
-      object["Column C: Degree Sum Indices"],
+    filteredObject["Degree Sum Based Indices"] = filterObject(
+      object["Degree Sum Based Indices"],
       substring
     );
-    filteredObject["Column D: Degree Sum Entropy"] = filterObject(
-      object["Column D: Degree Sum Entropy"],
+    filteredObject["Degree Sum Based Entropies"] = filterObject(
+      object["Degree Sum Based Entropies"],
       substring
     );
     return filteredObject;

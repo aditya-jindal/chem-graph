@@ -25,4 +25,4 @@ class ColumnAB(FourColumns):
         return m_plus, m_minus, m_mul, m_square_plus
 
     def get_ab_values(self):
-        return {"Column A: Degree Indices": self.capitalize_dictionary(self.degree_indices), "Column B: Degree Entropy": self.capitalize_dictionary(self.entropy_indices)}
+        return {" Degree Based Indices": self.capitalize_dictionary(self.degree_indices), " Degree Based Entropies": self.capitalize_dictionary(self.entropy_indices)}
