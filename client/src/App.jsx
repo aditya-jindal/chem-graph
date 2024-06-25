@@ -3,6 +3,7 @@ import "./App.css";
 import Loader from "./Loader";
 import FourColumnsTable from "./FourColumnsTable";
 import DistanceColumnsTable from "./DistanceColumnsTable";
+import EdgePartitions from "./EdgePartitions";
 import ChartComponent from "./chartComponent";
 import Spline from "@splinetool/react-spline";
 
@@ -20,7 +21,7 @@ function App() {
     setFile(event.target.files[0]);
   };
 
-  const [selectedOption, setSelectedOption] = useState("Degree Based Values");
+  const [selectedOption, setSelectedOption] = useState("Edge Partitions");
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
@@ -39,14 +40,16 @@ function App() {
         `${APILINK}/${
           selectedOption === "Degree Based Values"
             ? "degree_based"
-            : "distance_based"
+            : selectedOption === "Distance Based Values"
+            ? "distance_based"
+            : "edge_partitions"
         }`,
         {
           method: "POST",
           body: formData,
         }
       );
-      console.log(response)
+      console.log(response);
       const data = await response.json();
       console.log(data);
       setValues(data.data);
@@ -60,7 +63,7 @@ function App() {
   };
 
   return (
-    <div style={{textAlign:"center"}}>
+    <div style={{ textAlign: "center" }}>
       <div style={{ position: "relative" }}>
         {/* <Spline
           style={{
@@ -81,6 +84,7 @@ function App() {
           disabled={loading}
         />
         <select onChange={handleSelectChange}>
+          <option>Edge Partitions</option>
           <option>Degree Based Values</option>
           <option>Distance Based Values</option>
         </select>
@@ -94,26 +98,18 @@ function App() {
         !loading &&
         values &&
         (selectedOption === "Degree Based Values" ? (
-          <>
-            {/* <ChartComponent
-              chartHTML={chartHTML}
-              edgeCount={values.edgeCount}
-              verticesCount={values.verticesCount}
-            /> */}
-            <FourColumnsTable values={values.four_columns} />
-          </>
+          <FourColumnsTable values={values.four_columns} />
+        ) : selectedOption === "Distance Based Values" ? (
+          <DistanceColumnsTable
+            distance_indices={values["Distance Indices"]}
+            distance_entropies={values["Distance Entropies"]}
+          />
         ) : (
-          <>
-            {/* <ChartComponent
-              chartHTML={chartHTML}
-              edgeCount={values.edgeCount}
-              verticesCount={values.verticesCount}
-            /> */}
-            <DistanceColumnsTable
-              distance_indices={values["Distance Indices"]}
-              distance_entropies={values["Distance Entropies"]}
-            />
-          </>
+          <EdgePartitions
+            edgeCount={values["Edge Count"]}
+            vertexCount={values["Vertices Count"]}
+            edgeList={values["Edge List"]}
+          />
         ))}
     </div>
   );

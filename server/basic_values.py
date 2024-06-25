@@ -71,3 +71,6 @@ class BasicValues(Graph):
 
     def get_vertices_count(self):
         return self.num_vertices
+
+    def get_edge_list(self):
+        return self.edge_list
