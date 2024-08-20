@@ -12,9 +12,15 @@ class ColumnE(ColumnAB):
         super().__init__(file, testing=testing)
         self.dist_matrix = self.floyd_warshall_igraph()
         self.nu_nv = self.compute_nu_nv()
+        self.node_edge_distances = self.compute_node_edge_distances()
         self.mu_mv = self.compute_mu_mv()
         self.distance_matrices = self.compute_distance_matrices()
         self.distance_indices = self.compute_distance_indices()
+
+    def compute_node_edge_distances(self):
+        node_edge_distances = np.minimum(self.dist_matrix[:, np.array([e[0] - 1 for e in self.graph.edges])],
+                                         self.dist_matrix[:, np.array([e[1] - 1 for e in self.graph.edges])])
+        return node_edge_distances
 
     def nx_to_igraph(self, nx_graph):
         edges = [(e[0], e[1]) for e in nx_graph.edges()]
@@ -47,23 +53,13 @@ class ColumnE(ColumnAB):
 
     def compute_mu_mv(self):
         mu_mv = []
-        intermediate_edge_list = np.array(self.graph.edges)
-        edge_list = intermediate_edge_list[:, 0] - 1
-        edge_list_other = intermediate_edge_list[:, 1] - 1
         for u, v in self.graph.edges:
-            dist_u = self.dist_matrix[u-1]
-            dist_v = self.dist_matrix[v-1]
-            dist_u_edges = dist_u[edge_list]
-            dist_v_edges = dist_v[edge_list]
-            dist_u_edges_other = dist_u[edge_list_other]
-            dist_v_edges_other = dist_v[edge_list_other]
-            count_u = np.sum((dist_u_edges < dist_v_edges) & (
-                dist_u_edges_other < dist_v_edges_other))
-            count_v = np.sum((dist_u_edges > dist_v_edges) & (
-                dist_u_edges_other > dist_v_edges_other))
+            dist_u = self.node_edge_distances[u-1]
+            dist_v = self.node_edge_distances[v-1]
+            count_u = np.sum(dist_u < dist_v)
+            count_v = np.sum(dist_u > dist_v)
             mu_mv.append([count_u, count_v])
         mu_mv = np.array(mu_mv, dtype=SAVE_MEM)
-
         return mu_mv
 
     def compute_distance_matrices(self):
@@ -100,10 +96,7 @@ class ColumnE(ColumnAB):
         indices = {}
         for key, value in self.distance_matrices.items():
             indices[key] = float(np.sum(value))
-
-        node_edge_distances = np.minimum(self.dist_matrix[:, np.array([e[0] - 1 for e in self.graph.edges])],
-                                         self.dist_matrix[:, np.array([e[1] - 1 for e in self.graph.edges])])
-        vertex_edge_wiener_index = np.sum(node_edge_distances) / 2
+        vertex_edge_wiener_index = np.sum(self.node_edge_distances) / 2
 
         edge_indices = np.array([e[0] - 1 for e in self.graph.edges])
         edge_indices_other = np.array([e[1] - 1 for e in self.graph.edges])
@@ -116,7 +109,7 @@ class ColumnE(ColumnAB):
             edge_edge_distances.append(one_edge_edge_distance)
         edge_edge_distances = np.array(edge_edge_distances, dtype=SAVE_MEM)
         edge_wiener_index = np.sum(edge_edge_distances) / 2
-
+        indices["wiener_index"] = np.sum(self.dist_matrix) / 2
         indices["vertex_edge_wiener"] = float(vertex_edge_wiener_index)
         indices["edge_wiener"] = float(edge_wiener_index)
 
