@@ -21,7 +21,7 @@ function App() {
     setFile(event.target.files[0]);
   };
 
-  const [selectedOption, setSelectedOption] = useState("Edge Partitions");
+  const [selectedOption, setSelectedOption] = useState("Graph Information");
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
@@ -42,7 +42,7 @@ function App() {
             ? "degree_based"
             : selectedOption === "Distance Based Values"
             ? "distance_based"
-            : "edge_partitions"
+            : "graph_information"
         }`,
         {
           method: "POST",
@@ -84,7 +84,7 @@ function App() {
           disabled={loading}
         />
         <select onChange={handleSelectChange}>
-          <option>Edge Partitions</option>
+          <option>Graph Information</option>
           <option>Degree Based Values</option>
           <option>Distance Based Values</option>
         </select>
@@ -108,7 +108,10 @@ function App() {
           <EdgePartitions
             edgeCount={values["Edge Count"]}
             vertexCount={values["Vertices Count"]}
-            edgeList={values["Edge List"]}
+            degreeEdgePartitions={values["Degree Edge Partitions"]}
+            degreeEdgeCounts={values["Degree Edge Counts"]}
+            degreeSumEdgePartitions={values["Degree Sum Edge Partitions"]}
+            degreeSumEdgeCounts={values["Degree Sum Edge Counts"]}
           />
         ))}
     </div>

@@ -15,16 +15,7 @@ class ColumnCD(FourColumns):
         self.entropy_indices = self.compute_entropy_indices()
 
     def compute_m_values(self):
-        adjacency_list = nx.to_dict_of_lists(self.graph)
-        weighted_G_dict = {i: sum([self.graph.degree(
-            node) for node in neighbours]) for i, neighbours in adjacency_list.items()}
-        weighted_G = nx.Graph()
-        for node in self.graph.nodes():
-            weighted_G.add_node(node, weight=weighted_G_dict[node])
-        for edge in self.edge_list:
-            weighted_G.add_edges_from([edge])
-        weight_edge_list = np.array(
-            [[weighted_G.nodes[i]['weight'], weighted_G.nodes[j]['weight']] for (i, j) in self.edge_list])
+        weight_edge_list = self.get_weight_edge_list()
 
         m_plus_weighted = weight_edge_list[:, 0] + weight_edge_list[:, 1]
         m_minus_weighted = weight_edge_list[:, 0] - weight_edge_list[:, 1]

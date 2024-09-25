@@ -1,5 +1,6 @@
 from basic_values import BasicValues
 import numpy as np
+import networkx as nx
 
 
 class FourColumns(BasicValues):
@@ -53,3 +54,36 @@ class FourColumns(BasicValues):
 
     def get_values(self):
         return {**self.degree_indices, **self.entropy_indices}
+
+    def rearrange_deg_edge_list(self, degree_edge_list):
+        print("in")
+        print(np.unique(np.sort(degree_edge_list, axis=1), axis=0, return_counts=True))
+        print("out")
+        return np.unique(np.sort(degree_edge_list, axis=1), axis=0, return_counts=True)
+
+    def get_weight_edge_list(self):
+        adjacency_list = nx.to_dict_of_lists(self.graph)
+        weighted_G_dict = {i: sum([self.graph.degree(
+            node) for node in neighbours]) for i, neighbours in adjacency_list.items()}
+        weighted_G = nx.Graph()
+        for node in self.graph.nodes():
+            weighted_G.add_node(node, weight=weighted_G_dict[node])
+        for edge in self.edge_list:
+            weighted_G.add_edges_from([edge])
+        weight_edge_list = np.array(
+            [[weighted_G.nodes[i]['weight'], weighted_G.nodes[j]['weight']] for (i, j) in self.edge_list])
+        
+        return weight_edge_list
+
+
+    def get_degree_edge_list(self):
+        return np.array(
+            [[self.degree[i], self.degree[j]] for (i, j) in self.edge_list])
+        
+    def get_deg_edge_partitions(self):
+        degree_edge_list = self.get_degree_edge_list()
+        return self.rearrange_deg_edge_list(degree_edge_list)
+    
+    def get_deg_sum_edge_partitions(self):
+        weight_edge_list = self.get_weight_edge_list()
+        return self.rearrange_deg_edge_list(weight_edge_list)

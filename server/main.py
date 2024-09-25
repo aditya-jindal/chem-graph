@@ -4,7 +4,7 @@ from flask_cors import CORS
 from column_ab import ColumnAB
 from column_cd import ColumnCD
 from column_f import ColumnF
-from basic_values import BasicValues
+from four_columns import FourColumns
 
 app = Flask(__name__)
 CORS(app)
@@ -34,9 +34,6 @@ def degree_based():
     colCD_instance = ColumnCD(file)
     ab_values = colAB_instance.get_ab_values()
     cd_values = colCD_instance.get_values()
-    graph_plot = colAB_instance.get_graph_plot()
-    edge_count = colAB_instance.get_edge_count()
-    vertices_count = colAB_instance.get_vertices_count()
     return jsonify({'message': 'File uploaded successfully',
                     'data':
                         {"four_columns": {**ab_values, **cd_values}}
@@ -63,19 +60,23 @@ def distance_based():
                    ), 200
 
 
-@app.route("/edge_partitions", methods=["POST"])
-def edge_partitions():
+@app.route("/graph_information", methods=["POST"])
+def graph_information():
     file = upload_file()
-    basic_values = BasicValues(file)
-    edge_count = basic_values.get_edge_count()
-    vertices_count = basic_values.get_vertices_count()
-    edge_list = basic_values.get_edge_list()
+    graph_info = FourColumns(file)
+    edge_count = graph_info.get_edge_count()
+    vertices_count = graph_info.get_vertices_count()
+    deg_edge_partitions, deg_edge_counts = graph_info.get_deg_edge_partitions()
+    deg_sum_edge_partitions, deg_sum_edge_counts = graph_info.get_deg_sum_edge_partitions()
     return jsonify({'message': 'File uploaded successfully',
                     'data':
                         {
                             "Edge Count": edge_count,
                             "Vertices Count": vertices_count,
-                            "Edge List": edge_list
+                            "Degree Edge Partitions": deg_edge_partitions.tolist(),
+                            "Degree Edge Counts": deg_edge_counts.tolist(),
+                            "Degree Sum Edge Partitions": deg_sum_edge_partitions.tolist(),
+                            "Degree Sum Edge Counts": deg_sum_edge_counts.tolist()
                         }
                     }
                    ), 200
