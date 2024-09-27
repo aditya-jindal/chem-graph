@@ -1,16 +1,20 @@
 function EdgePartitions({
   edgeCount,
   vertexCount,
+  energy,
   degreeEdgePartitions,
   degreeEdgeCounts,
   degreeSumEdgePartitions,
   degreeSumEdgeCounts,
+  timeTaken,
 }) {
   return (
     edgeCount && (
       <div>
+        <p>Time Taken: {timeTaken} seconds</p>
         <p>Number of vertices: {vertexCount}</p>
         <p>Number of edges: {edgeCount}</p>
+        <p>{energy && `Energy: ${energy}`}</p>
         <p>Degree Edge Partitions:-</p>
         <table
           style={{

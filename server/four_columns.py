@@ -56,9 +56,6 @@ class FourColumns(BasicValues):
         return {**self.degree_indices, **self.entropy_indices}
 
     def rearrange_deg_edge_list(self, degree_edge_list):
-        print("in")
-        print(np.unique(np.sort(degree_edge_list, axis=1), axis=0, return_counts=True))
-        print("out")
         return np.unique(np.sort(degree_edge_list, axis=1), axis=0, return_counts=True)
 
     def get_weight_edge_list(self):

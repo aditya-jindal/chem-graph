@@ -1,6 +1,10 @@
 import { useState } from "react";
 
-function DistanceColumnsTable({ distance_indices, distance_entropies }) {
+function DistanceColumnsTable({
+  distance_indices,
+  distance_entropies,
+  timeTaken,
+}) {
   const [query, setQuery] = useState("");
   function handleChange(e) {
     e.preventDefault();
@@ -24,7 +28,14 @@ function DistanceColumnsTable({ distance_indices, distance_entropies }) {
     <>
       <h2>Distance Based Values</h2>
       {queryResults1 && (
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}
+        >
+          <p>Time Taken: {timeTaken} seconds</p>
           <table
             style={{ border: "1px solid black", borderCollapse: "collapse" }}
           >

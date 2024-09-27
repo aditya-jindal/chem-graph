@@ -74,3 +74,9 @@ class BasicValues(Graph):
 
     def get_edge_list(self):
         return self.edge_list
+
+    def compute_energy(self):
+        adj_matrix = nx.to_numpy_array(self.graph)
+        eigenvalues = np.linalg.eigvals(adj_matrix)
+        energy = np.sum(np.abs(eigenvalues))
+        return energy

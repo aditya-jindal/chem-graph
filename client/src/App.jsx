@@ -17,6 +17,8 @@ function App() {
   const [values, setValues] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [textareaValue, setTextareaValue] = useState("");
+
   const onFileChange = (event) => {
     setFile(event.target.files[0]);
   };
@@ -26,11 +28,33 @@ function App() {
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
   };
+  const handleTextareaChange = (event) => {
+    setTextareaValue(event.target.value);
+  };
+  const convertMatrixToList = (matrix) => {
+    const adjacencyList = {};
+    for (let i = 0; i < matrix.length; i++) {
+      adjacencyList[i] = [];
+      for (let j = 0; j < matrix[i].length; j++) {
+        if (matrix[i][j] === 1) {
+          adjacencyList[i].push(j);
+        }
+      }
+    }
+    return adjacencyList;
+  };
 
   const onFormSubmit = async (event) => {
     event.preventDefault();
 
     const formData = new FormData();
+    const inputString = textareaValue;
+    if (inputString) {
+      const jsonString = inputString.match(/=\s*(\[.*\])/)[1];
+      const matrix = JSON.parse(jsonString);
+      const adjacencyList = convertMatrixToList(matrix);
+      formData.append("textareaData", JSON.stringify(adjacencyList));
+    }
     formData.append("file", file);
 
     try {
@@ -79,10 +103,17 @@ function App() {
       <form onSubmit={onFormSubmit}>
         <input
           type="file"
-          accept=".pdb, .txt"
+          accept=".pdb, .txt, .mol"
           onChange={onFileChange}
           disabled={loading}
         />
+        <textarea
+          style={{ width: "100%", height: "200px" }}
+          value={textareaValue}
+          onChange={handleTextareaChange}
+          disabled={loading}
+          placeholder="Paste the adjacency matrix obtained from newGraph here"
+        ></textarea>
         <select onChange={handleSelectChange}>
           <option>Graph Information</option>
           <option>Degree Based Values</option>
@@ -98,20 +129,26 @@ function App() {
         !loading &&
         values &&
         (selectedOption === "Degree Based Values" ? (
-          <FourColumnsTable values={values.four_columns} />
+          <FourColumnsTable
+            values={values.four_columns}
+            timeTaken={values.time_taken}
+          />
         ) : selectedOption === "Distance Based Values" ? (
           <DistanceColumnsTable
             distance_indices={values["Distance Indices"]}
             distance_entropies={values["Distance Entropies"]}
+            timeTaken={values.time_taken}
           />
         ) : (
           <EdgePartitions
             edgeCount={values["Edge Count"]}
             vertexCount={values["Vertices Count"]}
+            energy={values["Energy"]}
             degreeEdgePartitions={values["Degree Edge Partitions"]}
             degreeEdgeCounts={values["Degree Edge Counts"]}
             degreeSumEdgePartitions={values["Degree Sum Edge Partitions"]}
             degreeSumEdgeCounts={values["Degree Sum Edge Counts"]}
+            timeTaken={values.time_taken}
           />
         ))}
     </div>

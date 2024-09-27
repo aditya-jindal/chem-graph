@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function FourColumnsTable({ values }) {
+function FourColumnsTable({ values, timeTaken }) {
   const [query, setQuery] = useState("");
   function handleChange(e) {
     e.preventDefault();
@@ -44,47 +44,50 @@ function FourColumnsTable({ values }) {
     <>
       <h2>Degree Based Values</h2>
       {queryResults && (
-        <table
-          style={{ border: "1px solid black", borderCollapse: "collapse" }}
-        >
-          <thead>
-            <tr>
-              <th style={{ border: "1px solid black", padding: "10px" }}>
-                <input
-                  type="text"
-                  placeholder="search for values here"
-                  value={query}
-                  onChange={(e) => handleChange(e)}
-                />
-              </th>
-              {Object.keys(queryResults).map((column, index) => (
-                <th
-                  key={index}
-                  style={{ border: "1px solid black", padding: "10px" }}
-                >
-                  {column}
+        <div>
+          <p>Time Taken: {timeTaken} seconds</p>
+          <table
+            style={{ border: "1px solid black", borderCollapse: "collapse" }}
+          >
+            <thead>
+              <tr>
+                <th style={{ border: "1px solid black", padding: "10px" }}>
+                  <input
+                    type="text"
+                    placeholder="search for values here"
+                    value={query}
+                    onChange={(e) => handleChange(e)}
+                  />
                 </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {keys.map((key, index) => (
-              <tr key={index}>
-                <td style={{ border: "1px solid black", padding: "10px" }}>
-                  {key}
-                </td>
-                {Object.keys(queryResults).map((column, columnIndex) => (
-                  <td
-                    key={columnIndex}
+                {Object.keys(queryResults).map((column, index) => (
+                  <th
+                    key={index}
                     style={{ border: "1px solid black", padding: "10px" }}
                   >
-                    {queryResults[column][key]}
-                  </td>
+                    {column}
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {keys.map((key, index) => (
+                <tr key={index}>
+                  <td style={{ border: "1px solid black", padding: "10px" }}>
+                    {key}
+                  </td>
+                  {Object.keys(queryResults).map((column, columnIndex) => (
+                    <td
+                      key={columnIndex}
+                      style={{ border: "1px solid black", padding: "10px" }}
+                    >
+                      {queryResults[column][key]}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </>
   );
