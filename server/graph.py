@@ -111,6 +111,8 @@ class Graph():
         if conect_list is None:
             return None
         G = nx.parse_adjlist(conect_list, nodetype=int)
+        mapping = {old_label: new_label for new_label, old_label in enumerate(G.nodes(), 1)}
+        G = nx.relabel_nodes(G, mapping)
         return G
 
     def get_graph(self):

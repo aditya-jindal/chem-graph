@@ -34,10 +34,10 @@ function App() {
   const convertMatrixToList = (matrix) => {
     const adjacencyList = {};
     for (let i = 0; i < matrix.length; i++) {
-      adjacencyList[i] = [];
+      adjacencyList[i + 1] = [];
       for (let j = 0; j < matrix[i].length; j++) {
         if (matrix[i][j] === 1) {
-          adjacencyList[i].push(j);
+          adjacencyList[i + 1].push(j + 1);
         }
       }
     }
