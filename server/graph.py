@@ -2,8 +2,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 import os
-from rdkit import Chem
-from pyvis.network import Network
+# from pyvis.network import Network
 import json
 
 
@@ -14,6 +13,7 @@ class Graph():
         self.file = file
         self.textarea_data = textarea_data
         self.graph = self.create_graph()
+        # self.plot_graph()
 
     def is_txt(self):
         if self.testing:
@@ -60,29 +60,6 @@ class Graph():
             print(f"An error occurred: {e}")
             return None
 
-    def read_mol_file(self):
-        try:
-            self.file.seek(0)
-            mol_block = self.file.read().decode('utf-8')
-            mol = Chem.MolFromMolBlock(mol_block, sanitize=False)
-            if not mol:
-                print("Failed to load .mol file content.")
-                return None
-
-            num_atoms = mol.GetNumAtoms()
-            adj_matrix = np.zeros((num_atoms, num_atoms), dtype=int)
-            for bond in mol.GetBonds():
-                i = bond.GetBeginAtomIdx()
-                j = bond.GetEndAtomIdx()
-                adj_matrix[i, j] = 1
-                adj_matrix[j, i] = 1
-
-            return adj_matrix
-
-        except Exception as e:
-            print(f"An error occurred while reading .mol file: {e}")
-            return None
-
     def conect_to_str(self, conectList):
         newList = [' '.join(map(str, list)) for list in conectList]
         return newList
@@ -91,11 +68,7 @@ class Graph():
         if self.is_txt():
             return self.conect_to_str(self.read_txt_file())
         elif self.is_mol():
-            adj_matrix = self.read_mol_file()
-            if adj_matrix is None:
-                return None
-            G = nx.from_numpy_array(adj_matrix)
-            return nx.generate_adjlist(G)
+            return self.read_mol_v2()
 
         return self.conect_to_str(self.read_pdb_file())
 
@@ -118,10 +91,65 @@ class Graph():
     def get_graph(self):
         return self.graph
 
-    def get_graph_plot(self):
-        nt = Network('500px', '500px')
-        nt.from_nx(self.graph)
-        html_str = nt.write_html('temp.html')
-        with open('temp.html', 'r') as f:
-            html_str = f.read()
-        return html_str
+    def read_mol_v2(self):
+        self.file.seek(0)
+        lines = self.file.readlines()
+        atom_count = int(lines[3][0:3].strip())
+        bond_count = int(lines[3][3:6].strip())
+        atom_lines = lines[4:4 + atom_count]
+        adjacency_list = [[] for i in range(atom_count)]
+        bond_lines = lines[4 + atom_count:4 + atom_count + bond_count]
+        for bond in bond_lines:
+            atom1 = int(bond[0:3].strip())  
+            atom2 = int(bond[3:6].strip())
+            adjacency_list[atom1-1].append(atom2)
+            adjacency_list[atom2-1].append(atom1)
+        adjacency_list = [" ".join(map(str, [index+1] + item)) for index, item in enumerate(adjacency_list)]
+        return adjacency_list
+
+    def read_mol_v3(self):
+        self.file.seek(0)
+        lines = self.file.readlines()
+        atom_count = int(lines[5].split()[3])
+        bond_count = int(lines[5].split()[4])
+        atom_start = None
+        atom_end = None
+        for index, line in enumerate(lines):
+            if line.startswith(b"M  V30 BEGIN ATOM"):
+                atom_start = index + 1
+            elif line.startswith(b"M  V30 END ATOM"):
+                atom_end = index
+                break
+        atom_lines = lines[atom_start:atom_end]
+        adjacency_list = [[] for i in range(atom_count)]       
+        bond_start = None
+        bond_end = None
+        for index, line in enumerate(lines):
+            if line.startswith(b"M  V30 BEGIN BOND"):
+                bond_start = index + 1
+            elif line.startswith(b"M  V30 END BOND"):
+                bond_end = index
+                break
+        bond_lines = lines[bond_start:bond_end]
+        for bond in bond_lines:
+            parts = bond.split()
+            atom1 = int(parts[4])  
+            atom2 = int(parts[5]) 
+            adjacency_list[atom1-1].append(atom2)
+            adjacency_list[atom2-1].append(atom1)
+        adjacency_list = [" ".join(map(str, [index+1] + item)) for index, item in enumerate(adjacency_list)]
+        return adjacency_list
+
+    def plot_graph(self):
+        pos = nx.spring_layout(self.graph)
+        nx.draw(self.graph, pos, with_labels=True, node_size=700)
+        plt.show()
+        return True
+    
+    # def get_graph_plot(self):
+    #     nt = Network('500px', '500px')
+    #     nt.from_nx(self.graph)
+    #     html_str = nt.write_html('temp.html')
+    #     with open('temp.html', 'r') as f:
+    #         html_str = f.read()
+    #     return html_str
