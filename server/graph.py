@@ -4,7 +4,7 @@ import numpy as np
 import os
 # from pyvis.network import Network
 import json
-
+import re
 
 class Graph():
 
@@ -14,22 +14,14 @@ class Graph():
         self.textarea_data = textarea_data
         self.graph = self.create_graph()
         # self.plot_graph()
-
-    def is_txt(self):
+    
+    def get_file_extension(self):
         if self.testing:
             _, file_extension = os.path.splitext(self.file.name)
         else:
             _, file_extension = os.path.splitext(self.file.filename)
 
-        return file_extension == '.txt'
-
-    def is_mol(self):
-        if self.testing:
-            _, file_extension = os.path.splitext(self.file.name)
-        else:
-            _, file_extension = os.path.splitext(self.file.filename)
-
-        return file_extension == '.mol'
+        return file_extension
 
     def read_pdb_file(self):
         try:
@@ -60,36 +52,20 @@ class Graph():
             print(f"An error occurred: {e}")
             return None
 
-    def conect_to_str(self, conectList):
-        newList = [' '.join(map(str, list)) for list in conectList]
-        return newList
-
-    def conect_list(self):
-        if self.is_txt():
-            return self.conect_to_str(self.read_txt_file())
-        elif self.is_mol():
+    def read_mol_file(self):
+        self.file.seek(0)
+        lines = self.file.readlines()
+        version_line = lines[3].decode('utf-8')
+        match = re.search(r'V(\d+)', version_line)
+        if match:
+            version = match.group(1)
+        else:
+            return "No version number found"
+        
+        if(version == '2000'):
             return self.read_mol_v2()
-
-        return self.conect_to_str(self.read_pdb_file())
-
-    def create_graph(self):
-        if self.textarea_data:
-            adjacency_list = json.loads(self.textarea_data)
-            G = nx.Graph()
-            for node, neighbors in adjacency_list.items():
-                for neighbor in neighbors:
-                    G.add_edge(int(node), neighbor)
-            return G
-        conect_list = self.conect_list()
-        if conect_list is None:
-            return None
-        G = nx.parse_adjlist(conect_list, nodetype=int)
-        mapping = {old_label: new_label for new_label, old_label in enumerate(G.nodes(), 1)}
-        G = nx.relabel_nodes(G, mapping)
-        return G
-
-    def get_graph(self):
-        return self.graph
+        elif(version == '3000'):
+            return self.read_mol_v3()
 
     def read_mol_v2(self):
         self.file.seek(0)
@@ -139,12 +115,44 @@ class Graph():
             adjacency_list[atom2-1].append(atom1)
         adjacency_list = [" ".join(map(str, [index+1] + item)) for index, item in enumerate(adjacency_list)]
         return adjacency_list
+    def conect_to_str(self, conectList):
+        newList = [' '.join(map(str, list)) for list in conectList]
+        return newList
+
+    def conect_list(self):
+        file_extension = self.get_file_extension()
+        if file_extension == ".txt":
+            return self.conect_to_str(self.read_txt_file())
+        elif file_extension == ".mol":
+            return self.read_mol_file()
+        elif file_extension == ".pdb":
+            return self.conect_to_str(self.read_pdb_file())
+        return None
+    
+    def create_graph(self):
+        if self.textarea_data:
+            adjacency_list = json.loads(self.textarea_data)
+            G = nx.Graph()
+            for node, neighbors in adjacency_list.items():
+                for neighbor in neighbors:
+                    G.add_edge(int(node), neighbor)
+            return G
+        conect_list = self.conect_list()
+        if conect_list is None:
+            return None
+        G = nx.parse_adjlist(conect_list, nodetype=int)
+        mapping = {old_label: new_label for new_label, old_label in enumerate(G.nodes(), 1)}
+        G = nx.relabel_nodes(G, mapping)
+        return G
 
     def plot_graph(self):
         pos = nx.spring_layout(self.graph)
         nx.draw(self.graph, pos, with_labels=True, node_size=700)
         plt.show()
         return True
+
+    def get_graph(self):
+        return self.graph
     
     # def get_graph_plot(self):
     #     nt = Network('500px', '500px')
