@@ -26,7 +26,6 @@ function DistanceColumnsTable({
 
   return (
     <>
-      <h2>Distance Based Values</h2>
       {queryResults1 && (
         <div
           style={{
@@ -34,7 +33,9 @@ function DistanceColumnsTable({
             justifyContent: "center",
             flexDirection: "column",
           }}
+          className="text-black"
         >
+          <h2 className="text-2xl font-bold mb-8 text-blue-800">Distance Based Values</h2>
           <p>Time Taken: {timeTaken} seconds</p>
           <table
             style={{ border: "1px solid black", borderCollapse: "collapse" }}
@@ -47,6 +48,7 @@ function DistanceColumnsTable({
                     placeholder="search for values here"
                     value={query}
                     onChange={(e) => handleChange(e)}
+                    className="bg-white placeholder-yellow-500 text-yellow-500 rounded-lg p-1 text-center"
                   />
                 </th>
                 <th style={{ border: "1px solid black", padding: "10px" }}>

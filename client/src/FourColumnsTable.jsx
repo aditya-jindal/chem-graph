@@ -42,9 +42,16 @@ function FourColumnsTable({ values, timeTaken }) {
     queryResults && Object.keys(queryResults[Object.keys(queryResults)[0]]);
   return (
     <>
-      <h2>Degree Based Values</h2>
       {queryResults && (
-        <div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}
+          className="text-black"
+        >
+          <h2 className="text-2xl font-bold mb-8 text-blue-800">Degree Based Values</h2>
           <p>Time Taken: {timeTaken} seconds</p>
           <table
             style={{ border: "1px solid black", borderCollapse: "collapse" }}
@@ -57,6 +64,7 @@ function FourColumnsTable({ values, timeTaken }) {
                     placeholder="search for values here"
                     value={query}
                     onChange={(e) => handleChange(e)}
+                    className="bg-white placeholder-yellow-500 text-yellow-500 rounded-lg p-1 text-center"
                   />
                 </th>
                 {Object.keys(queryResults).map((column, index) => (

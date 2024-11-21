@@ -4,13 +4,12 @@ import Loader from "./Loader";
 import FourColumnsTable from "./FourColumnsTable";
 import DistanceColumnsTable from "./DistanceColumnsTable";
 import EdgePartitions from "./EdgePartitions";
-import ChartComponent from "./chartComponent";
-import Spline from "@splinetool/react-spline";
 
 function App() {
   // const APILINK = "https://chem-graph.onrender.com";
   // const APILINK = "http://localhost:5000";
-  const APILINK = "https://vpqebjeug2dtqoi3exx6nlfdta0jnxyl.lambda-url.us-east-1.on.aws";
+  const APILINK =
+    "https://vpqebjeug2dtqoi3exx6nlfdta0jnxyl.lambda-url.us-east-1.on.aws";
 
   const [chartHTML, setChartHTML] = useState("");
   const [file, setFile] = useState(null);
@@ -18,6 +17,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [textareaValue, setTextareaValue] = useState("");
+  const [showTextarea, setShowTextarea] = useState(false);
 
   const onFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -30,6 +30,9 @@ function App() {
   };
   const handleTextareaChange = (event) => {
     setTextareaValue(event.target.value);
+  };
+  const handleTextareaToggle = () => {
+    setShowTextarea(!showTextarea);
   };
   const convertMatrixToList = (matrix) => {
     const adjacencyList = {};
@@ -87,42 +90,128 @@ function App() {
   };
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <div style={{ position: "relative" }}>
-        {/* <Spline
-          style={{
-            position: "absolute",
-            top: "0",
-            left: "0",
-            width: "20%",
-          }}
-          scene="https://prod.spline.design/9NYWdodoCJuvjZdX/scene.splinecode"
-        /> */}
-        <h1>Chem Graph</h1>
+    <div className="text-center bg-yellow-400 min-h-screen w-screen">
+      {/* Header */}
+      <div className="bg-blue-800 py-4 text-white flex justify-between px-8 items-center">
+        <div className="flex space-x-6">
+          <a href="#" className="hover:underline">
+            Home
+          </a>
+          <a href="#" className="hover:underline">
+            About
+          </a>
+          <a href="#" className="hover:underline">
+            Instructions
+          </a>
+          <a href="#" className="hover:underline">
+            Contact
+          </a>
+        </div>
+        {/* <div className="text-xl font-bold">
+          <span className="rounded-full bg-white text-blue-800 px-4 py-2">
+            KJ
+          </span>
+        </div> */}
       </div>
-      <form onSubmit={onFormSubmit}>
-        <input
-          type="file"
-          accept=".pdb, .txt, .mol"
-          onChange={onFileChange}
-          disabled={loading}
-        />
-        <textarea
-          style={{ width: "100%", height: "200px" }}
-          value={textareaValue}
-          onChange={handleTextareaChange}
-          disabled={loading}
-          placeholder="Paste the adjacency matrix obtained from newGraph here"
-        ></textarea>
-        <select onChange={handleSelectChange}>
-          <option>Graph Information</option>
-          <option>Degree Based Values</option>
-          <option>Distance Based Values</option>
-        </select>
-        <button type="submit" disabled={loading}>
-          Upload
-        </button>
-      </form>
+
+      {/* Main Content */}
+      <div className="py-16">
+        <h1 className="text-4xl font-bold mb-8 text-blue-800">ChemGraph</h1>
+
+        {/* Form Section */}
+        <form
+          onSubmit={onFormSubmit}
+          className="bg-white p-8 rounded-lg shadow-md mx-auto max-w-4xl"
+        >
+          <p className="text-xl font-semibold mb-4 text-blue-800">
+            Choose input format:
+          </p>
+          {/* Input Buttons */}
+          <div className="flex justify-center space-x-8 mb-4">
+            <button
+              type="button"
+              onClick={() => document.getElementById("mol-file-input").click()}
+              className="bg-blue-800 text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-700"
+            >
+              MOL file
+            </button>
+            <button
+              type="button"
+              onClick={() => document.getElementById("pdb-file-input").click()}
+              className="bg-blue-800 text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-700"
+            >
+              PDB file
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                document.getElementById("adjacency-list-input").click()
+              }
+              className="bg-blue-800 text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-700"
+            >
+              Adjacency list
+            </button>
+            <button
+              type="button"
+              onClick={handleTextareaToggle}
+              className="bg-blue-800 text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-700"
+            >
+              Adjacency matrix
+            </button>
+          </div>
+
+          {/* Hidden File Inputs */}
+          <input
+            id="mol-file-input"
+            type="file"
+            accept=".mol"
+            onChange={onFileChange}
+            disabled={loading}
+            className="hidden"
+          />
+          <input
+            id="pdb-file-input"
+            type="file"
+            accept=".pdb"
+            onChange={onFileChange}
+            disabled={loading}
+            className="hidden"
+          />
+          <input
+            id="adjacency-list-input"
+            type="file"
+            accept=".txt"
+            onChange={onFileChange}
+            disabled={loading}
+            className="hidden"
+          />
+          {showTextarea && (
+            <textarea
+              className="block mb-4 w-full h-32 border-2 border-gray-300 p-2 rounded-md"
+              value={textareaValue}
+              onChange={handleTextareaChange}
+              disabled={loading}
+              placeholder="Paste the adjacency matrix obtained from newGraph here"
+            ></textarea>
+          )}
+          <select
+            onChange={handleSelectChange}
+            className="block mb-4 w-full border-2 border-gray-300 p-2 rounded-md"
+          >
+            <option>Graph Information</option>
+            <option>Degree Based Values</option>
+            <option>Distance Based Values</option>
+          </select>
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-blue-800 text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-700"
+          >
+            Upload
+          </button>
+        </form>
+      </div>
+
       {error && <h2>Error Computing Values</h2>}
       {loading && <Loader />}
       {!error &&
