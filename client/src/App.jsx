@@ -209,9 +209,11 @@ function App() {
           >
             Upload
           </button>
+          {file && <p className="text-blue-800 mt-2">Uploaded file: {file.name}</p>}
         </form>
       </div>
 
+      {/* Display uploaded file name */}
       {error && <h2>Error Computing Values</h2>}
       {loading && <Loader />}
       {!error &&
