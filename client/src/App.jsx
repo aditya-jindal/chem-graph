@@ -11,7 +11,7 @@ function App() {
   const APILINK =
     "https://vpqebjeug2dtqoi3exx6nlfdta0jnxyl.lambda-url.us-east-1.on.aws";
 
-  const [chartHTML, setChartHTML] = useState("");
+  // const [chartHTML, setChartHTML] = useState("");
   const [file, setFile] = useState(null);
   const [values, setValues] = useState(undefined);
   const [loading, setLoading] = useState(false);
@@ -80,7 +80,7 @@ function App() {
       const data = await response.json();
       console.log(data);
       setValues(data.data);
-      setChartHTML(data.data.graph);
+      // setChartHTML(data.data.graph);
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -90,9 +90,12 @@ function App() {
   };
 
   return (
-    <div className="text-center bg-yellow-400 min-h-screen w-screen">
+    <div className="text-center bg-slate-200 min-h-screen w-screen">
       {/* Header */}
       <div className="bg-blue-800 py-4 text-white flex justify-between px-8 items-center">
+        <div className="font-bold text-xl">
+          ChemGraph
+        </div>
         <div className="flex space-x-6">
           <a href="#" className="hover:underline">
             Home
