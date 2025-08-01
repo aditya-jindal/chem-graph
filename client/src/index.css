@@ -119,3 +119,7 @@ select {
   background-color: #f8f8f8;
   color: black;
 }
+
+#root {
+  min-width: 100vw;
+}
