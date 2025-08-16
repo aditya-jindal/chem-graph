@@ -14,15 +14,13 @@ function App() {
 
   return (
     <div className="bg-gray-100 min-h-screen font-serif text-black">
-      <header className="bg-blue-700 text-white py-4">
-        <div className="w-full px-[2cm] flex justify-between items-center">
-          <h1 className="text-3xl font-bold">ChemGraphX</h1>
-          <nav className="space-x-6">
-            <button onClick={()=>setActiveTab('home')} className="hover:underline">Home</button>
-            <button onClick={()=>setActiveTab('instructions')} className="hover:underline">Instructions</button>
-            <button onClick={()=>setActiveTab('contact')} className="hover:underline">Contact</button>
+        <header className="bg-blue-700 text-white p-4 flex justify-between items-center">
+          <h1 className="text-xl font-bold">ChemGraphX</h1>
+          <nav className="flex space-x-4">
+            <button onClick={() => setActiveTab('home')} className="bg-transparent text-white hover:underline">Home</button>
+            <button onClick={() => setActiveTab('instructions')} className="bg-transparent text-white hover:underline">Instructions</button>
+            <button onClick={() => setActiveTab('contact')}className="bg-transparent text-white hover:underline">Contact</button>
           </nav>
-        </div>
       </header>
       <main className="w-full px-[2cm] py-16">
         {activeTab === 'home' && <HomeTab />}
