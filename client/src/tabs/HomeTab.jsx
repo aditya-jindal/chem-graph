@@ -116,8 +116,8 @@ function HomeTab() {
           className="border-black border-2 rounded-xl w-full py-2 px-4 mb-6"
         >
           <option>Graph Information</option>
-          <option>Degree-Based Indices</option>
-          <option>Distance-Based Indices</option>
+          <option>Degree-Based Indices and Entropies</option>
+          <option>Distance-Based Indices and Entropies</option>
         </select>
         <button
           type="submit"
@@ -134,9 +134,9 @@ function HomeTab() {
       {loading && <Loader className="mt-4" />}
       {!loading && !error && values && (
         <div className="w-full px-[2cm] mt-8">
-          {selectedOption === "Degree-Based Indices" ? (
+          {selectedOption === "Degree-Based Indices and Entropies" ? (
             <FourColumnsTable values={values.four_columns} timeTaken={values.time_taken} />
-          ) : selectedOption === "Distance-Based Indices" ? (
+          ) : selectedOption === "Distance-Based Indices and Entropies" ? (
             <DistanceColumnsTable
               distance_indices={values["Distance Indices"]}
               distance_entropies={values["Distance Entropies"]}
