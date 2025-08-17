@@ -9,8 +9,8 @@ The backend is powered by **Python** (Flask, Flask-CORS, NetworkX, NumPy) and de
 ## Features
 
 - Calculate **graph information** such as order, size, and degree partitions.
-- Compute **degree-based indices**, entropy measures, and hybrid indices.
-- Evaluate **distance-based indices**, including Wiener, Szeged, PI, and Mostar-type variants.
+- Compute **degree-based indices and entorpies**.
+- Evaluate **distance-based indices and entropies**.
 - Support for **chemical graphs** (.mol, .pdb) and **general networks** (adjacency list/matrix).
 
 ---
