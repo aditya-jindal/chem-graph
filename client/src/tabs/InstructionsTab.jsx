@@ -6,7 +6,7 @@ const InstructionsTab = () => {
         ChemGraphX is a web-based computational tool designed to calculate topological indices (TIs) and graph entropies for both chemical and general networks. The backend is built using Python, leveraging libraries like Flask for handling web requests, Flask-CORS for cross-origin resource sharing, NetworkX for graph theory computations, and NumPy for efficient numerical calculations. Gunicorn serves as the application server, ensuring scalability and performance, with cloud-based deployment managed via Amazon Web Services (AWS) and serverless computing through AWS Lambda. This cloud integration enables real-time processing and high computational efficiency. On the front end, the interface is crafted using CSS, JavaScript, and React, ensuring a dynamic, responsive, and user-friendly experience. The combination of a powerful backend and an intuitive frontend makes ChemGraphX a fast, reliable, and accessible tool for users across various fields.
       </p>
 
-      <h3 className="text-xl font-semibold mb-2">1 Input files</h3>
+      <h3 className="text-xl font-semibold mb-2">1. Input files</h3>
       <p className="mb-6">
         ChemGraphX offers four input methods, enabling users to select the most appropriate option based on the type of graph they intend to analyze. For chemical graphs, users can upload .mol and .pdb files, while adjacency lists and matrices are available for general network analyses.
       </p>
@@ -17,7 +17,7 @@ const InstructionsTab = () => {
         <li><b>Adjacency List (.txt)</b>: Users can manually create adjacency lists for their graphs and save them as a .txt file using a basic text editor like Notepad.</li>
       </ul>
 
-      <h3 className="text-xl font-semibold mt-6 mb-2">2 Work flow with ChemGraphX</h3>
+      <h3 className="text-xl font-semibold mt-6 mb-2">2. Work flow with ChemGraphX</h3>
       <p className="mb-6">
         ChemGraphX is a user-friendly web application offering two primary input methods on its homepage. The first is an upload area where users can submit .mol, .pdb, or .txt files containing graph adjacency data. The second is a text area, accessible via the "Adjacency Matrix" button, allowing users to directly paste adjacency matrices generated using the newGraph software. After providing input, users can select the desired computation from a drop-down menu featuring three options: Graph Information, Degree-Based Indices, and Distance-Based Indices. The selection generates corresponding results based on the input graph data.
       </p>
@@ -27,7 +27,7 @@ const InstructionsTab = () => {
         <li><b>Distance-Based Indices and Entropies</b>: Provides several distance-based indices (e.g., Wiener, Szeged, PI, Mostar-type), their weighted variants, and entropy measures calculated using Shannon’s information formula.</li>
       </ul>
 
-      <h3 className="text-xl font-semibold mt-6 mb-2">3 References</h3>
+      <h3 className="text-xl font-semibold mt-6 mb-2">3. References</h3>
       <ol className="list-decimal list-inside mb-6">
         <li>I. Gutman, O.E. Polansky, Topological Indices. In: Mathematical Concepts in Organic Chemistry. Springer, Berlin, Heidelberg (1986)</li>
         <li>A.D. Hunter, ACD/ChemSketch 1.0 (freeware); ACD/ChemSketch 2.0 and its tautomers, dictionary, and 3D plug-ins; ACD/HNMR 2.0; ACD/CNMR 2.0, J. Chem. Educ. 74(8) (1997) 905.</li>
