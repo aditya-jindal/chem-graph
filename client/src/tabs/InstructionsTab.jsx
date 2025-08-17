@@ -23,8 +23,8 @@ const InstructionsTab = () => {
       </p>
       <ul className="list-disc list-inside mb-6">
         <li><b>Graph Information</b>: Delivers key graph metrics including order, size, and various degree-based partitions.</li>
-        <li><b>Degree-Based Indices</b>: Computes a range of degree-based indices, their degree sum-based variants, newly introduced hybrid geometric-harmonic-Zagreb indices, and entropy measures using Shannon’s information formula.</li>
-        <li><b>Distance-Based Indices</b>: Provides several distance-based indices (e.g., Wiener, Szeged, PI, Mostar-type), their weighted variants, and entropy measures calculated using Shannon’s information formula.</li>
+        <li><b>Degree-Based Indices and Entropies</b>: Computes a range of degree-based indices, their degree sum-based variants, newly introduced hybrid geometric-harmonic-Zagreb indices, and entropy measures using Shannon’s information formula.</li>
+        <li><b>Distance-Based Indices and Entropies</b>: Provides several distance-based indices (e.g., Wiener, Szeged, PI, Mostar-type), their weighted variants, and entropy measures calculated using Shannon’s information formula.</li>
       </ul>
 
       <h3 className="text-xl font-semibold mt-6 mb-2">3 References</h3>
