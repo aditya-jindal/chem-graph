@@ -1,6 +1,6 @@
 const InstructionsTab = () => {
   return (
-    <div className="bg-white shadow-lg rounded-4xl p-8 max-w-4xl mx-auto text-justify">
+    <div className="bg-white shadow-lg rounded-4xl p-8 max-w-4xl mx-auto text-justify times-new-roman-font">
       <h2 className="text-2xl font-semibold mb-4 text-blue-600">Detailed Instructions</h2>
       <p className="mb-6">
         ChemGraphX is a web-based computational tool designed to calculate topological indices (TIs) and graph entropies for both chemical and general networks. The backend is built using Python, leveraging libraries like Flask for handling web requests, Flask-CORS for cross-origin resource sharing, NetworkX for graph theory computations, and NumPy for efficient numerical calculations. Gunicorn serves as the application server, ensuring scalability and performance, with cloud-based deployment managed via Amazon Web Services (AWS) and serverless computing through AWS Lambda. This cloud integration enables real-time processing and high computational efficiency. On the front end, the interface is crafted using CSS, JavaScript, and React, ensuring a dynamic, responsive, and user-friendly experience. The combination of a powerful backend and an intuitive frontend makes ChemGraphX a fast, reliable, and accessible tool for users across various fields.
