@@ -19,7 +19,7 @@ const InstructionsTab = () => {
 
       <h3 className="text-xl font-semibold mt-6 mb-2">2. Work flow with ChemGraphX</h3>
       <p className="mb-6">
-        ChemGraphX is a user-friendly web application offering two primary input methods on its homepage. The first is an upload area where users can submit .mol, .pdb, or .txt files containing graph adjacency data. The second is a text area, accessible via the "Adjacency Matrix" button, allowing users to directly paste adjacency matrices generated using the newGraph software. After providing input, users can select the desired computation from a drop-down menu featuring three options: Graph Information, Degree-Based Indices, and Distance-Based Indices. The selection generates corresponding results based on the input graph data.
+        ChemGraphX is a user-friendly web application offering two primary input methods on its homepage. The first is an upload area where users can submit .mol, .pdb, or .txt files containing graph adjacency data. The second is a text area, accessible via the "Adjacency Matrix" button, allowing users to directly paste adjacency matrices generated using the newGraph software. After providing input, users can select the desired computation from a drop-down menu featuring three options: Graph Information, Degree-Based Indices and Entropies, and Distance-Based Indices and Entropies. The selection generates corresponding results based on the input graph data.
       </p>
       <ul className="list-disc list-inside mb-6">
         <li><b>Graph Information</b>: Delivers key graph metrics including order, size, and various degree-based partitions.</li>
