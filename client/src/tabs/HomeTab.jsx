@@ -41,9 +41,9 @@ function HomeTab() {
     setLoading(true);
     try {
       const ep =
-        selectedOption === "Degree-Based Indices"
+        selectedOption === "Degree-Based Indices and Entropies"
           ? "degree_based"
-          : selectedOption === "Distance-Based Indices"
+          : selectedOption === "Distance-Based Indices and Entropies"
           ? "distance_based"
           : "graph_information";
       const res = await fetch(`${APILINK}/${ep}`, { method: "POST", body: formData });
@@ -161,7 +161,7 @@ function HomeTab() {
       <div className="bg-white shadow-md rounded-3xl p-6 text-left max-w-4xl mx-auto mt-8">
         <h3 className="text-lg font-semibold mb-4 text-blue-600">How to Cite:</h3>
         <p className="text-gray-700 leading-relaxed">
-          J. Clement, K. Jacob, M. Arockiaraj, A. Jindal, <strong>ChemGraphX:</strong> A web-based tool for computing topological invariants of chemical and general networks <em>SoftwareX</em>, (Submitted).
+          K. Jacob, J. Clement, M. Arockiaraj, A. Jindal, <strong>ChemGraphX:</strong> A web-based tool for computing topological invariants of chemical and general networks <em>SoftwareX</em>, (Submitted).
         </p>
       </div>
     </div>
