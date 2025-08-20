@@ -10,7 +10,7 @@ const InstructionsTab = () => {
       <p className="mb-6">
         ChemGraphX offers four input methods, enabling users to select the most appropriate option based on the type of graph they intend to analyze. For chemical graphs, users can upload .mol and .pdb files, while adjacency lists and matrices are available for general network analyses.
       </p>
-      <ul className="list-disc list-inside mb-6">
+      <ul className="list-disc list-inside mb-6" style={{ paddingLeft: '1.2em', listStylePosition: 'outside'}}>
         <li><b>Molecular Data File (.mol)</b>: Used for chemical graphs, storing detailed molecular information. Files can be obtained from open-source platforms like ChemSpider or created with tools such as <a className="text-blue-600 underline" href="http://acdlabs.com/resources/free-chemistry-software-apps/chemsketch-freeware/" target="_blank" rel="noopener noreferrer">ChemSketch</a>.</li>
         <li><b>Protein Data Bank (.pdb)</b>: Provides detailed three-dimensional experimental structures of macromolecules. PDB files are available from resources like RCSB PDB or can be exported from software like <a className="text-blue-600 underline" href="https://www.crystalmaker.com/crystalmaker/download/index.html" target="_blank" rel="noopener noreferrer">CrystalMaker 11</a> and <a className="text-blue-600 underline" href="https://software.stanford.edu/software/chemoffice-professional" target="_blank" rel="noopener noreferrer">Chem3D</a>.</li>
         <li><b>Adjacency Matrix</b>: For general graph analysis, users can generate adjacency matrices using the <a className="text-blue-600 underline" href="https://www.mi.sanu.ac.rs/newgraph/" target="_blank" rel="noopener noreferrer">newGraph</a> software, then copy and paste them directly into ChemGraphX.</li>
@@ -21,19 +21,20 @@ const InstructionsTab = () => {
       <p className="mb-6">
         ChemGraphX is a user-friendly web application offering two primary input methods on its homepage. The first is an upload area where users can submit .mol, .pdb, or .txt files containing graph adjacency data. The second is a text area, accessible via the "Adjacency Matrix" button, allowing users to directly paste adjacency matrices generated using the newGraph software. After providing input, users can select the desired computation from a drop-down menu featuring three options: Graph Information, Degree-Based Indices and Entropies, and Distance-Based Indices and Entropies. The selection generates corresponding results based on the input graph data.
       </p>
-      <ul className="list-disc list-inside mb-6">
+      <ul className="list-disc list-inside mb-6" style={{ paddingLeft: '1.2em', listStylePosition: 'outside'}}>
         <li><b>Graph Information</b>: Delivers key graph metrics including order, size, and various degree-based partitions.</li>
         <li><b>Degree-Based Indices and Entropies</b>: Computes a range of degree-based indices, their degree sum-based variants, newly introduced hybrid geometric-harmonic-Zagreb indices, and entropy measures using Shannon’s information formula.</li>
         <li><b>Distance-Based Indices and Entropies</b>: Provides several distance-based indices (e.g., Wiener, Szeged, PI, Mostar-type), their weighted variants, and entropy measures calculated using Shannon’s information formula.</li>
       </ul>
 
-      <h3 className="text-xl font-semibold mt-6 mb-2">3. References</h3>
-      <ol className="list-decimal list-inside mb-6">
+      <h3 className="text-xl font-semibold mt-6 mb-4" style={{ fontFamily: 'Times New Roman, serif' }}> 3. References </h3>
+      <ol className="list-decimal list-inside mb-6" style={{ fontFamily: 'Times New Roman, serif', paddingLeft: '1.2em', listStylePosition: 'outside'}}>
         <li>I. Gutman, O.E. Polansky, Topological Indices. In: Mathematical Concepts in Organic Chemistry. Springer, Berlin, Heidelberg (1986)</li>
-        <li>A.D. Hunter, ACD/ChemSketch 1.0 (freeware); ACD/ChemSketch 2.0 and its tautomers, dictionary, and 3D plug-ins; ACD/HNMR 2.0; ACD/CNMR 2.0, J. Chem. Educ. 74(8) (1997) 905.</li>
-        <li>D.C. Palmer, Visualization and analysis of crystal structures using CrystalMaker software, Z. Kristallogr.- Cryst. Mater. 230(9-10) (2015) 559–572.</li>
-        <li>V. Brankov, D. Stevanovic, An invitation to newgraph, Rendiconti del Seminario Matematico di Messina, 25 (2003) 211–216.</li>
+        <li>A.D. Hunter, ACD/ChemSketch 1.0 (freeware); ACD/ChemSketch 2.0 and its tautomers, dictionary, and 3D plug-ins; ACD/HNMR 2.0; ACD/CNMR 2.0, J. Chem. Educ. <strong>74</strong>(8) (1997) 905. </li>
+        <li>D.C. Palmer, Visualization and analysis of crystal structures using CrystalMaker software, Z. Kristallogr.- Cryst. Mater. <strong>230</strong>(9-10) (2015) 559–572.</li>
+        <li>V. Brankov, D. Stevanovic, An invitation to newgraph, Rendiconti del Seminario Matematico di Messina, <strong>25</strong> (2003) 211–216.</li>
       </ol>
+
     </div>
   );
 };

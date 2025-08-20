@@ -63,7 +63,7 @@ function HomeTab() {
         <h2 className="text-blue-600 text-5xl">ChemGraphX</h2>
       </div>
       <p className="text-center text-blue-600 mb-6 -mt-5 text-lg">
-        A web-based tool for computing topological invariants of chemical and general networks
+        An Open-Source Web Tool for Computing Topological Indices and Entropy Measures
       </p>
 
       {/* Descriptive paragraph */}
@@ -74,7 +74,7 @@ function HomeTab() {
       </div>
 
       {/* Upload Form */}
-      <form onSubmit={onFormSubmit} className="bg-white p-8 rounded-4xl shadow-lg w-full px-[2cm]">
+      <form onSubmit={onFormSubmit} className="bg-white p-8 rounded-4xl shadow-lg w-full px-[2cm]"style={{ fontFamily: 'Times New Roman, serif' }}>
         <h2 className="text-xl font-semibold mb-6">Choose input format:</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
           {["mol", "pdb", "adj-list", "textarea"].map((type) => (
@@ -130,10 +130,10 @@ function HomeTab() {
       </form>
 
       {/* Output */}
-      {error && <h2 className="text-red-600 mt-4">Error computing values</h2>}
+      {error && <h2 className="text-red-600 mt-4" >Error computing values</h2>}
       {loading && <Loader className="mt-4" />}
       {!loading && !error && values && (
-        <div className="w-full px-[2cm] mt-8">
+        <div className="w-full px-[2cm] mt-8"style={{ fontFamily: 'Times New Roman, serif' }}>
           {selectedOption === "Degree-Based Indices and Entropies" ? (
             <FourColumnsTable values={values.four_columns} timeTaken={values.time_taken} />
           ) : selectedOption === "Distance-Based Indices and Entropies" ? (
@@ -161,7 +161,7 @@ function HomeTab() {
       <div className="bg-white shadow-md rounded-3xl p-6 text-left max-w-4xl mx-auto mt-8">
         <h3 className="text-lg font-semibold mb-4 text-blue-600">How to Cite:</h3>
         <p className="text-gray-700 leading-relaxed">
-          K. Jacob, J. Clement, M. Arockiaraj, A. Jindal, <strong>ChemGraphX:</strong> A web-based tool for computing topological invariants of chemical and general networks <em>SoftwareX</em>, (Submitted).
+          K. Jacob, J. Clement, M. Arockiaraj, A. Jindal, K Balasubramanian, <strong>ChemGraphX:</strong> An Open-Source Web Tool for Computing Topological Indices and Entropy Measures <em>SoftwareX</em>, (Submitted).
         </p>
       </div>
     </div>
