@@ -160,8 +160,8 @@ function HomeTab() {
       {/* How to Cite Section */}
       <div className="bg-white shadow-md rounded-3xl p-6 text-left max-w-4xl mx-auto mt-8">
         <h3 className="text-lg font-semibold mb-4 text-blue-600">How to Cite:</h3>
-        <p className="text-gray-700 leading-relaxed">
-          K. Jacob, J. Clement, M. Arockiaraj, A. Jindal, K Balasubramanian, <strong>ChemGraphX:</strong> An Open-Source Web Tool for Computing Topological Indices and Entropy Measures <em>SoftwareX</em>, (Submitted).
+        <p className="text-gray-700 leading-relaxed"style={{ fontFamily: 'Times New Roman, serif' }}>
+          K. Jacob, J. Clement, M. Arockiaraj, A. Jindal, ChemGraphX: An Open-Source Web Tool for Computing Topological Indices and Entropy Measures, <em>Journal of Cheminformatics</em> (2025) <strong>Submitted</strong>.
         </p>
       </div>
     </div>

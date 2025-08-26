@@ -8,7 +8,7 @@ const ContactTab = () => {
       <div className="space-y-10">
   <div className="border-l-4 border-gray-300 pl-6 text-left">
     <p>
-      <strong>Mr. Kavin Jacob D</strong><br />
+      <strong>Mr. Kavin Jacob</strong><br />
       School of Advanced Sciences, Department of Mathematics,<br />
       Vellore Institute of Technology, Vellore.<br />
       E-mail: <a href="mailto:kavinjacob@gmail.com" className="text-blue-700 hover:underline">kavinjacob@gmail.com</a>
@@ -17,7 +17,7 @@ const ContactTab = () => {
 
   <div className="border-l-4 border-gray-300 pl-6 text-left">
     <p>
-      <strong>Dr. Clement J</strong><br />
+      <strong>Dr. Joseph Clement</strong><br />
       School of Advanced Sciences, Department of Mathematics,<br />
       Vellore Institute of Technology, Vellore.<br />
       E-mail: <a href="mailto:clementjmail@gmail.com" className="text-blue-700 hover:underline">clementjmail@gmail.com</a>
@@ -26,7 +26,7 @@ const ContactTab = () => {
 
   <div className="border-l-4 border-gray-300 pl-6 text-left">
     <p>
-      <strong>Dr. M Arockiaraj</strong><br />
+      <strong>Dr. Micheal Arockiaraj</strong><br />
       Department of Mathematics,<br />
       Loyola College, Chennai.<br />
       E-mail: <a href="mailto:marockiaraj@gmail.com" className="text-blue-700 hover:underline">marockiaraj@gmail.com</a>
@@ -39,15 +39,6 @@ const ContactTab = () => {
       School of Computer Science and Engineering,<br />
       Vellore Institute of Technology, Vellore.<br />
       E-mail: <a href="mailto:adityajindal1509@gmail.com" className="text-blue-700 hover:underline">adityajindal1509@gmail.com</a>      
-    </p>
-  </div>
-
-    <div className="border-l-4 border-gray-300 pl-6 text-left">
-    <p>
-      <strong>Dr. Krishnan Balasubramanian</strong><br />
-      School of Molecular Sciences,<br />
-      Arizona State University, USA.<br />
-      E-mail: <a href="kbalu@asu.edu" className="text-blue-700 hover:underline">kbalu@asu.edu</a>
     </p>
   </div>
 </div>
